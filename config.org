@@ -48,7 +48,7 @@
  :desc "toogle test and implementation" "ps" 'projectile-toggle-between-implementation-and-test
  "pS"              'projectile-save-project-buffers
 
- "os"              'spotify-command-map
+ "os"              #'hydra-spotify/body
  )
 #+end_src
 
@@ -372,10 +372,39 @@ need to integrate in doom eval/REPL
 #+end_src
 
 ** spotify
+*** setup
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.config/emacs-doom/.local/spotify.el/")
+(add-to-list 'load-path "$DOOMDIR/local-packages/spotify.el/")
 (require 'spotify)
 (setq spotify-oauth2-client-id "6a89d313c4604bc094e51866ed7faca9")
 (setq spotify-oauth2-client-secret "f2b2729fe3124736a29cb44f28d5a935")
-;; (global-spotify-remote-mode)
+#+END_SRC
+
+*** hydra
+#+BEGIN_SRC emacs-lisp
+;; A hydra for controlling spotify.
+(defhydra hydra-spotify (:hint nil)
+    "
+^Search^                  ^Control^               ^Manage^
+^^^^^^^^-----------------------------------------------------------------
+_t_: Track               _SPC_: Play/Pause        _+_: Volume up
+_m_: My Playlists        _n_  : Next Track        _-_: Volume down
+_f_: Featured Playlists  _p_  : Previous Track    _x_: Mute
+_u_: User Playlists      _r_  : Repeat            _d_: Device
+^^                       _s_  : Shuffle           _q_: Quit
+"
+    ("t" spotify-track-search :exit t)
+    ("m" spotify-my-playlists :exit t)
+    ("f" spotify-featured-playlists :exit t)
+    ("u" spotify-user-playlists :exit t)
+    ("SPC" spotify-toggle-play :exit nil)
+    ("n" spotify-next-track :exit nil)
+    ("p" spotify-previous-track :exit nil)
+    ("r" spotify-toggle-repeat :exit nil)
+    ("s" spotify-toggle-shuffle :exit nil)
+    ("+" spotify-volume-up :exit nil)
+    ("-" spotify-volume-down :exit nil)
+    ("x" spotify-volume-mute-unmute :exit nil)
+    ("d" spotify-select-device :exit nil)
+    ("q" quit-window "quit" :color blue))
 #+END_SRC
