@@ -54,3 +54,5 @@
 (package! org-bullets)
 (package! elfeed-goodies)
 (package! cider-hydra)
+(package! simple-httpd)
+(package! oauth2)

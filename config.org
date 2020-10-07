@@ -47,6 +47,8 @@
 
  :desc "toogle test and implementation" "ps" 'projectile-toggle-between-implementation-and-test
  "pS"              'projectile-save-project-buffers
+
+ "os"              'spotify-command-map
  )
 #+end_src
 
@@ -343,6 +345,16 @@ need to integrate in doom eval/REPL
 ;;   :ghook 'prog-mode-hook)
 #+end_src
 
+** minibuffer
+#+BEGIN_SRC emacs-lisp
+(defun suppress-messages (old-fun &rest args)
+  (cl-flet ((silence (&rest args1) (ignore)))
+    (advice-add 'message :around #'silence)
+    (unwind-protect
+         (apply old-fun args)
+      (advice-remove 'message #'silence))))
+(advice-add 'url-lazy-message :around #'suppress-messages)
+#+END_SRC
 * other
 ** elfeed
 *** setup
@@ -358,3 +370,12 @@ need to integrate in doom eval/REPL
   :config
   (elfeed-goodies/setup))
 #+end_src
+
+** spotify
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.config/emacs-doom/.local/spotify.el/")
+(require 'spotify)
+(setq spotify-oauth2-client-id "6a89d313c4604bc094e51866ed7faca9")
+(setq spotify-oauth2-client-secret "f2b2729fe3124736a29cb44f28d5a935")
+;; (global-spotify-remote-mode)
+#+END_SRC
