@@ -374,7 +374,7 @@ need to integrate in doom eval/REPL
 ** spotify
 *** setup
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "$DOOMDIR/local-packages/spotify.el/")
+(add-to-list 'load-path "~/.config/doom/local-packages/spotify.el/")
 (require 'spotify)
 (setq spotify-oauth2-client-id "6a89d313c4604bc094e51866ed7faca9")
 (setq spotify-oauth2-client-secret "f2b2729fe3124736a29cb44f28d5a935")
