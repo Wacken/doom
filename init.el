@@ -112,7 +112,7 @@
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        (csharp +unity)            ; unity, .net, and mono shenanigans
-       ;;data              ; config/data formats
+       data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of tea?
@@ -127,7 +127,7 @@
        (haskell +dante)  ; a language that's lazier than i am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       ;;json              ; at least it ain't xml
+       json              ; at least it ain't xml
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster matlab
@@ -160,7 +160,7 @@
        ;;solidity          ; do you need a blockchain? no.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; earth and moon in alignment for performance.
-       ;;web               ; the tubes
+       (web +html)               ; the tubes
        ;;yaml              ; json, but readable
 
        :email
