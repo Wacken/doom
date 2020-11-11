@@ -56,3 +56,4 @@
 (package! cider-hydra)
 (package! simple-httpd)
 (package! oauth2)
+(package! org-brain)

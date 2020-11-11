@@ -118,7 +118,7 @@
        ;;elm               ; care for a cup of tea?
        emacs-lisp                       ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
-       ;;ess               ; emacs speaks statistics
+       ess               ; emacs speaks statistics
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp            ; ml stands for microsoft's language
        ;;fstar             ; (dependent) types and (monadic) effects and z3
