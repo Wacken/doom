@@ -33,7 +33,7 @@
 (setq byte-compile-warnings '(cl-functions)) ; ignore Package cl is depcrecated warning
 #+end_src
 
-* !keybindings
+* keybindings
 ** general
 *** doom
 #+begin_src emacs-lisp
@@ -68,8 +68,8 @@
         which-key-show-operator-state-maps t))
  #+end_src
 
-* +navigation
-** +counsel
+* navigation
+** TODO counsel
  #+begin_src emacs-lisp
 (use-package! counsel
   :init
@@ -160,8 +160,8 @@
   ;;   (beacon-mode))
 #+end_src
 
-* +code-transform
-** +expand-region
+* code-transform
+** TODO expand-region
 #+begin_src emacs-lisp
 ;; (use-package expand-region
 ;;   :ensure t
@@ -218,7 +218,7 @@ evil-cleverparens
 ;; ;; (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 #+end_src
 
-* +languages
+* languages
 ** tools
 *** company
 **** statistics
@@ -248,7 +248,7 @@ need to integrate in doom eval/REPL
   :ghook 'clojure-mode-hook)
 #+end_src
 
-** +python
+** TODO [#A] python
 #+begin_src emacs-lisp
 ;; (use-package jedi
 ;;   :init
