@@ -23,7 +23,7 @@
         +prescient +icons) ; a search engine for love and life
 
        :ui
-       ;; deft                     ; notational velocity for emacs
+       deft                     ; notational velocity for emacs
        doom                             ; what makes doom look the way it does
        doom-dashboard                   ; a nifty splash screen for emacs
        ;; doom-quit                ; doom quit-message prompts when you quit emacs
@@ -141,7 +141,7 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; i hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       org              ; organize your plain life in plain text
+       (org +brain +pretty +noter +roam +journal)              ;+jupyter organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional

@@ -126,7 +126,6 @@
        :inherit ace-jump-face-foreground :height 3.0
        :foreground "red")))
 #+end_src
-
 * texteditor
 ** lines
 #+begin_src emacs-lisp
@@ -151,6 +150,9 @@
 (add-hook! 'rainbow-mode-hook
   (hl-line-mode (if rainbow-mode -1 +1)))
 #+END_SRC
+
+#+RESULTS:
+| lambda | (&rest _) | (hl-line-mode (if rainbow-mode -1 1)) |
 
 ** -beacon
 #+begin_src emacs-lisp
@@ -217,7 +219,7 @@ evil-cleverparens
 ;;             haskell-mode-hook)))
 ;; ;; (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 #+end_src
-
+     
 * languages
 ** tools
 *** company
@@ -256,39 +258,82 @@ need to integrate in doom eval/REPL
 ;;   (add-hook 'python-mode-hook 'jedi:ac-setup))
 #+end_src
 
-** org
-*** setup
+** TODO c++
 #+begin_src emacs-lisp
+;; (use-package ggtags
+;;   :ensure t
+;;   :config
+;;   (add-hook 'c-mode-common-hook
+;;             (lambda ()
+;;               (when
+;;                   (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+;;                 (ggtags-mode 1)))))
+
+#+end_src
+
+* org
+** setup
+#+begin_src emacs-lisp
+(defconst org-dir "~/Files/Org/")
+(setq org-directory org-dir)
 (custom-set-variables
  '(org-startup-folded 'overview)
- '(org-startup-indented t))
-(defconst org-dir "~/Files/Org")
-(setq org-directory org-dir)
+ '(org-startup-indented t)
+ '(org-default-notes-file (concat org-directory "notes.org"))
+ '(org-modules '(org-habit)))
+;; `(org-modules ',(cons 'org-habit org-modules)))
 ;; somehow broken
 ;; (setq org-file-apps
 ;;       (append
-;;        '(("\\.pdf\\'" . "zathura %s"))
+;;        '(("\\.pdf\\'" . "pdf-tools %s"))
 ;;        org-file-apps))
 (setq org-agenda-files
-      `(,(concat org-dir "/gcal.org")
-        ,(concat org-dir "/i.org")))
+      (list
+       org-dir
+       (concat org-dir "journal/")
+       (concat org-dir "roam/")
+       (concat org-dir "brain/")))
 (setq org-log-done 'time)
+(setq org-log-into-drawer t)
 #+end_src
 
-#+RESULTS:
-: time
-
-*** bullets
+** bullets
 #+begin_src emacs-lisp
-(use-package! org-bullets
+(use-package! org-superstar
   :init
-  (setq org-bullets-bullet-list
-        '("▶" "✚" "●" "◆" "◇"))
-  :ghook 'org-mode-hook)
+  (setq org-superstar-headline-bullets-list
+        '("▶" "✚" "●" "◆" "◇")))
 #+end_src
 
-*** org-brain
-**** setup
+** deft
+#+begin_src emacs-lisp
+(setq deft-directory org-dir
+      deft-extensions '("org")
+      deft-recursive t)
+#+end_src
+
+** journal
+#+begin_src emacs-lisp
+(setq org-journal-date-prefix "#+TITLE: "
+      org-journal-time-prefix "* "
+      org-journal-date-format "%a, %Y-%m-%d"
+      org-journal-file-format "%Y-%m-%d.org")
+#+end_src
+
+** noter
+#+begin_src emacs-lisp
+(setq org-noter-always-create-frame nil)
+#+end_src
+
+** org-agenda
+#+begin_src emacs-lisp
+(use-package! org-agenda
+  :config
+  (setq org-habit-show-habits-only-for-today t))
+#+end_src
+
+** COMMENT org-brain
+*** setup
 #+begin_src emacs-lisp
 (use-package! org-brain
   :init
@@ -308,14 +353,14 @@ need to integrate in doom eval/REPL
   (map! :map org-mode-map "C-c b" 'org-brain-prefix-map))
 #+end_src
 
-**** polymode
+*** polymode
 #+begin_src emacs-lisp 
 ;; (use-package! polymode
 ;;   :config
 ;;   (add-hook 'org-brain-visualize-mode-hook #'org-brain-polymode))
 #+end_src
 
-**** all-the-icons
+*** all-the-icons
 #+begin_src emacs-lisp
 (defun org-brain-insert-resource-icon (link)
   "Insert an icon, based on content of org-mode LINK."
@@ -332,19 +377,6 @@ need to integrate in doom eval/REPL
                          (all-the-icons-icon-for-file link)))))
 
   (add-hook 'org-brain-after-resource-button-functions #'org-brain-insert-resource-icon))
-#+end_src
-
-** TODO c++
-#+begin_src emacs-lisp
-;; (use-package ggtags
-;;   :ensure t
-;;   :config
-;;   (add-hook 'c-mode-common-hook
-;;             (lambda ()
-;;               (when
-;;                   (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-;;                 (ggtags-mode 1)))))
-
 #+end_src
 
 * ui
@@ -402,6 +434,17 @@ need to integrate in doom eval/REPL
       (advice-remove 'message #'silence))))
 (advice-add 'url-lazy-message :around #'suppress-messages)
 #+END_SRC
+** COMMENT eaf
+#+begin_src emacs-lisp
+(use-package eaf
+  :load-path "/usr/share/emacs/site-lisp/eaf" ; Set to "" if installed from AUR
+  :custom
+  (eaf-find-alternate-file-in-dired t)
+  :config
+  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key take_photo "p" eaf-camera-keybinding))
+#+end_src
 * other
 ** elfeed
 *** setup

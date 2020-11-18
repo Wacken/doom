@@ -51,9 +51,7 @@
 
 (package! company-statistics)
 (package! yasnippet-snippets)
-(package! org-bullets)
 (package! elfeed-goodies)
 (package! cider-hydra)
 (package! simple-httpd)
 (package! oauth2)
-(package! org-brain)
