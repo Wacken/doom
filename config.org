@@ -126,6 +126,22 @@
        :inherit ace-jump-face-foreground :height 3.0
        :foreground "red")))
 #+end_src
+** dired
+#+begin_src emacs-lisp
+(use-package! dired
+  :ensure nil
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-up-directory
+    "l" 'dired-find-file))
+
+(use-package! dired-open
+  :config
+  (setq dired-open-extensions '(("png" . "sxiv")("jpg" . "sxiv")("jpeg" . "sxiv")
+                                ("mp4" . "vlc"))))
+#+end_src
+
 * texteditor
 ** lines
 #+begin_src emacs-lisp

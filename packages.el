@@ -55,3 +55,5 @@
 (package! cider-hydra)
 (package! simple-httpd)
 (package! oauth2)
+(package! dired-single)
+(package! dired-open)
