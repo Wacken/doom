@@ -295,9 +295,7 @@ need to integrate in doom eval/REPL
 (custom-set-variables
  '(org-startup-folded 'overview)
  '(org-startup-indented t)
- '(org-default-notes-file (concat org-directory "notes.org"))
- '(org-modules '(org-habit)))
-;; `(org-modules ',(cons 'org-habit org-modules)))
+ '(org-default-notes-file (concat org-directory "notes.org")))
 ;; somehow broken
 ;; (setq org-file-apps
 ;;       (append
@@ -307,10 +305,12 @@ need to integrate in doom eval/REPL
       (list
        org-dir
        (concat org-dir "journal/")
-       (concat org-dir "roam/")
-       (concat org-dir "brain/")))
+       (concat org-dir "roam/")))
+       ;; (concat org-dir "brain/")))
 (setq org-log-done 'time)
 (setq org-log-into-drawer t)
+(setq org-ellipsis " ▾")
+(setq org-agenda-start-with-log-mode t)
 #+end_src
 
 ** bullets
@@ -346,6 +346,15 @@ need to integrate in doom eval/REPL
 (use-package! org-agenda
   :config
   (setq org-habit-show-habits-only-for-today t))
+(add-to-list 'org-modules 'org-habit)
+#+end_src
+
+** org-roam
+#+begin_src emacs-lisp
+(use-package! org-roam
+  :init
+  (setq org-roam-directory (concat org-dir "roam/"))
+  )
 #+end_src
 
 ** COMMENT org-brain
