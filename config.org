@@ -129,7 +129,6 @@
 ** dired
 #+begin_src emacs-lisp
 (use-package! dired
-  :ensure nil
   :custom ((dired-listing-switches "-agho --group-directories-first"))
   :config
   (evil-collection-define-key 'normal 'dired-mode-map
@@ -266,7 +265,7 @@ need to integrate in doom eval/REPL
   :ghook 'clojure-mode-hook)
 #+end_src
 
-** TODO [#A] python
+** python
 #+begin_src emacs-lisp
 ;; (use-package jedi
 ;;   :init
@@ -347,6 +346,8 @@ need to integrate in doom eval/REPL
   :config
   (setq org-habit-show-habits-only-for-today t))
 (add-to-list 'org-modules 'org-habit)
+(load! "local-packages/org-habit-plus")
+(add-to-list 'org-modules 'org-habit-plus)
 #+end_src
 
 ** org-roam
