@@ -324,6 +324,85 @@ need to integrate in doom eval/REPL
   (setq org-superstar-headline-bullets-list
         '("▶" "✚" "●" "◆" "◇")))
 #+end_src
+** todo-Settings
+#+begin_src emacs-lisp
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+(with-no-warnings
+  (custom-declare-face '+org-todo-active  '((t (:inherit (bold font-lock-constant-face org-todo)))) "")
+  (custom-declare-face '+org-todo-project '((t (:inherit (bold font-lock-doc-face org-todo)))) "")
+  (custom-declare-face '+org-todo-onhold  '((t (:inherit (bold warning org-todo)))) ""))
+(setq org-todo-keyword-faces
+      (quote (("NEXT" . +org-todo-active)
+              ("WAITING" . +org-todo-project)
+              ("HOLD" . +org-todo-onhold))))
+#+end_src
+
+** capture
+#+begin_src emacs-lisp
+(setq org-capture-templates
+      `(("t" "Todo [inbox]" entry
+         (file+headline ,(concat org-directory "inbox.org") "Tasks")
+         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%a\n%i" :empty-lines 1)
+        ("T" "Todo No Reference [inbox]" entry
+         (file+headline ,(concat org-directory "inbox.org") "Tasks")
+         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i" :empty-lines 1)
+        ("a" "Appointment" entry
+         (file+headline ,(concat org-directory "gcal.org") "Appointment")
+         "* %?\n%^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
+        ("n" "Personal notes" entry
+         (file+headline +org-capture-notes-file "Inbox")
+         "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%a\n%i" :prepend t)
+        ("N" "Personal notes No Reference" entry
+         (file+headline +org-capture-notes-file "Inbox")
+         "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i" :prepend t)
+        ("L" "Link" entry
+         (file+headline +org-capture-notes-file "Inbox")
+         "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%x\n%i" :prepend t)))
+#+end_src
+
+*** COMMENT old
+#+begin_src emacs-lisp
+(("a" "Appointment" entry
+  (file+headline "~/Files/Org/gcal.org" "Appointment")
+  "* %i%? \n %U")
+ ("i" "Todo [inbox]" entry
+  (file+headline "~/Files/Org/inbox.org" "Tasks")
+  "* TODO %i%?")
+ ("t" "Personal todo" entry
+  (file+headline +org-capture-todo-file "Inbox")
+  "* [ ] %?\n%i\n%a" :prepend t)
+ ("n" "Personal notes" entry
+  (file+headline +org-capture-notes-file "Inbox")
+  "* %u %?\n%i\n%a" :prepend t)
+ ("j" "Journal" entry
+  (file+olp+datetree +org-capture-journal-file)
+  "* %U %?\n%i\n%a" :prepend t)
+ ("p" "Templates for projects")
+ ("pt" "Project-local todo" entry
+  (file+headline +org-capture-project-todo-file "Inbox")
+  "* TODO %?\n%i\n%a" :prepend t)
+ ("pn" "Project-local notes" entry
+  (file+headline +org-capture-project-notes-file "Inbox")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("pc" "Project-local changelog" entry
+  (file+headline +org-capture-project-changelog-file "Unreleased")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("o" "Centralized templates for projects")
+ ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+ ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+ ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
+#+end_src
+
+** refiling
+#+begin_src emacs-lisp
+(setq org-refile-targets
+      `((,(concat org-directory "todo.org") :maxlevel . 3)
+        (,(concat org-directory "someday.org") :level . 1)
+        (,(concat org-directory "gcal.org") :maxlevel . 2)))
+(setq org-archive-location (concat org-directory "archive.org_archive::* Archived Tasks"))
+#+end_src
 
 ** deft
 #+begin_src emacs-lisp
