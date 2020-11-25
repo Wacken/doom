@@ -18,8 +18,8 @@
        ;;japanese
 
        :completion
-       (company +tng)                   ; the ultimate code completion backend
-       (ivy                ;; +fuzzy
+       (company +tng)                   ; the ultimate code completion backend +childframe
+       (ivy                ;; +fuzzy +childframe
         +prescient +icons) ; a search engine for love and life
 
        :ui
@@ -32,20 +32,20 @@
        hydra
        ;; indent-guides            ; highlighted indent columns
        (ligatures +fira +extra) ; ligatures and symbols to make your code pretty again
-       minimap                  ; show a map of the code on the side
+       ;; minimap                  ; show a map of the code on the side
        modeline                 ; snazzy, atom-inspired modeline, plus api
-       nav-flash                ; blink cursor line after big motions
+       ;; nav-flash                ; blink cursor line after big motions
        ;; neotree                  ; a project drawer, like nerdtree for vim
        ophints                 ; highlight the region an operation acts on
        (popup +defaults)       ; tame sudden yet inevitable temporary windows
        ;; tabs                     ; a tab bar for emacs
-       treemacs                      ; a project drawer, like neotree but cooler
+       ;; treemacs                      ; a project drawer, like neotree but cooler
        ;; unicode                  ; extended unicode support for various languages
        vc-gutter              ; vcs diff in the fringe
        vi-tilde-fringe        ; fringe tildes to mark beyond eob
        window-select          ; visually switch windows
-       workspaces             ; tab emulation, persistence & separate workspaces
-       zen                    ; distraction-free coding or writing
+       ;; workspaces             ; tab emulation, persistence & separate workspaces
+       ;; zen                    ; distraction-free coding or writing
 
        :editor
        (evil +everywhere)   ; come to the dark side, we have cookies
@@ -53,7 +53,7 @@
        fold                 ; (nigh) universal code folding
        (format +onsave)     ; automated prettiness
        ;; lispy                ; vim for lisp, for people who don't like vim
-       multiple-cursors     ; editing in many places at once
+       ;; multiple-cursors     ; editing in many places at once
        parinfer          ; turn lisp into python, sort of
        rotate-text               ; cycle region at point between text candidates
        snippets                  ; my elves. they type so i don't have to
@@ -74,34 +74,33 @@
 
        :checkers
        (syntax +childframe)           ; tasing you for every semicolon you forget
-       (spell +anspell +flyspell)             ; tasing you for misspelling mispelling fs
+       (spell +anspell +flyspell)             ; tasing you for misspelling mispelling fs +hunspell +enchant +everywhere
        grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
-       biblio
-       (debugger +lsp)          ; fixme stepping through code, to help you add bugs
+       ;; biblio
+       ;; (debugger +lsp)          ; fixme stepping through code, to help you add bugs
        ;;direnv
        ;;docker
-       editorconfig      ; let someone else argue about tabs vs spaces
-       ;;ein               ; tame jupyter notebooks with emacs
+       ;; editorconfig      ; let someone else argue about tabs vs spaces
+       ein               ; tame jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup +dictionary +offline)              ; navigate your code and its documentation
-       (lsp +peek)
+       ;; (lsp +peek)
        magit                    ; a git porcelain for emacs
-       make              ; run make tasks from emacs
+       ;; make              ; run make tasks from emacs
        ;;pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
-       taskrunner        ; taskrunner for all your projects
+       ;; taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an api for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
-       ;; (:if is-mac macos)  ; improve compatibility with macos
        ;;tty               ; improve the terminal emacs experience
 
        :lang
@@ -132,7 +131,7 @@
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster matlab
        ;;kotlin            ; a better, slicker java(script)
-       ;;latex             ; writing papers in emacs has never been so fun
+       latex             ; writing papers in emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in emacs
@@ -141,7 +140,7 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; i hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +pretty +noter +roam +journal)              ;+jupyter organize your plain life in plain text
+       (org +dragndrop +pandoc +pretty +noter +roam +journal +jupyter)              ;organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional

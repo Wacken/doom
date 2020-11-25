@@ -49,11 +49,15 @@
  "pS"              'projectile-save-project-buffers
 
  "os"              #'hydra-spotify/body
+
+ "a"               'org-agenda
+ "A"               'org-switchb
+ "T"               'org-capture
  )
 #+end_src
 
 ** evil
-*** TODO setup
+*** setup
  #+begin_src emacs-lisp
      (setq evil-emacs-state-modes nil)
      ;; don't put into normal mode in repl (setq evil-insert-state-modes nil)
@@ -69,7 +73,7 @@
  #+end_src
 
 * navigation
-** TODO counsel
+** counsel
  #+begin_src emacs-lisp
 (use-package! counsel
   :init
@@ -178,7 +182,7 @@
 #+end_src
 
 * code-transform
-** TODO expand-region
+** expand-region
 #+begin_src emacs-lisp
 ;; (use-package expand-region
 ;;   :ensure t
@@ -188,7 +192,7 @@
 ;;    "c--" 'er/contract-region))
 #+end_src
 
-** TODO hungry-delete
+** hungry-delete
 #+begin_src emacs-lisp
   ;; (use-package hungry-delete
   ;;   :ensure t
@@ -199,7 +203,7 @@
   ;;             haskell-mode-hook)))
 #+end_src
 
-** TODO lispy
+** lispy
 *** setup
 #+begin_src emacs-lisp
 ;; (use-package! lispy
@@ -224,7 +228,7 @@ evil-lispy
 paredit
 smartparens
 evil-cleverparens
-** TODO agressive-indent
+** agressive-indent
 #+begin_src emacs-lisp
 ;; (use-package aggressive-indent
 ;;   :ensure t
@@ -273,7 +277,7 @@ need to integrate in doom eval/REPL
 ;;   (add-hook 'python-mode-hook 'jedi:ac-setup))
 #+end_src
 
-** TODO c++
+** c++
 #+begin_src emacs-lisp
 ;; (use-package ggtags
 ;;   :ensure t
@@ -291,6 +295,8 @@ need to integrate in doom eval/REPL
 #+begin_src emacs-lisp
 (defconst org-dir "~/Files/Org/")
 (setq org-directory org-dir)
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(setq diary-file (concat org-directory "diary.org"))
 (custom-set-variables
  '(org-startup-folded 'overview)
  '(org-startup-indented t)
@@ -301,11 +307,10 @@ need to integrate in doom eval/REPL
 ;;        '(("\\.pdf\\'" . "pdf-tools %s"))
 ;;        org-file-apps))
 (setq org-agenda-files
-      (list
-       org-dir
-       (concat org-dir "journal/")
-       (concat org-dir "roam/")))
-       ;; (concat org-dir "brain/")))
+      (list org-dir
+            (concat org-dir "journal/")
+            (concat org-dir "roam/")))
+;; (concat org-dir "brain/")))
 (setq org-log-done 'time)
 (setq org-log-into-drawer t)
 (setq org-ellipsis " ▾")
@@ -340,7 +345,7 @@ need to integrate in doom eval/REPL
 (setq org-noter-always-create-frame nil)
 #+end_src
 
-** org-agenda
+** org-habit
 #+begin_src emacs-lisp
 (use-package! org-agenda
   :config
