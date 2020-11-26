@@ -720,6 +720,11 @@ need to integrate in doom eval/REPL
 
   (add-hook 'org-brain-after-resource-button-functions #'org-brain-insert-resource-icon))
 #+end_src
+** block template
+#+begin_src emacs-lisp
+(require 'org-tempo)
+(add-to-list 'org-structure-template-alist '("S" . "src emacs-lisp"))
+#+end_src
 
 * ui
 ** themes
