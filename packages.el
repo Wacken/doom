@@ -57,3 +57,4 @@
 (package! oauth2)
 (package! dired-single)
 (package! dired-open)
+(package! org-super-agenda)
