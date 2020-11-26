@@ -609,6 +609,21 @@ need to integrate in doom eval/REPL
  ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
  ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
 #+end_src
+** appt
+#+begin_src emacs-lisp
+(defun bh/org-agenda-to-appt () ; Erase all reminders and rebuilt reminders for today from the agenda
+  (interactive)
+  (setq appt-time-msg-list nil)
+  (org-agenda-to-appt))
+(add-hook 'org-agenda-finalize-hook 'bh/org-agenda-to-appt 'append) ; Rebuild the reminders everytime the agenda is displayed
+(appt-activate t) ; Activate appointments so we get notifications
+(run-at-time "24:01" nil 'bh/org-agenda-to-appt) ; If we leave Emacs running overnight - reset the appointments one minute after midnight
+(setq appt-message-warning-time 15
+      appt-display-interval 1
+      ;; ring-bell-function (lambda () (play-sound-file "~/.config/doom/local-packages/364658__original-sound__notification.wav"))
+      ;; visible-bell nil
+      appt-audible (cons 3 .5))
+#+end_src
 
 ** refiling
 #+begin_src emacs-lisp
