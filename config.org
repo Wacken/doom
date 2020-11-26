@@ -1,4 +1,3 @@
-#+startup: overview
 * Setup
 #+begin_src emacs-lisp
 
@@ -296,25 +295,20 @@ need to integrate in doom eval/REPL
 (defconst org-dir "~/Files/Org/")
 (setq org-directory org-dir)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-(setq diary-file (concat org-directory "diary.org"))
-(custom-set-variables
- '(org-startup-folded 'overview)
- '(org-startup-indented t)
- '(org-default-notes-file (concat org-directory "notes.org")))
-;; somehow broken
-;; (setq org-file-apps
-;;       (append
-;;        '(("\\.pdf\\'" . "pdf-tools %s"))
-;;        org-file-apps))
-(setq org-agenda-files
-      (list org-dir
-            (concat org-dir "journal/")
-            (concat org-dir "roam/")))
-;; (concat org-dir "brain/")))
-(setq org-log-done 'time)
-(setq org-log-into-drawer t)
-(setq org-ellipsis " ▾")
-(setq org-agenda-start-with-log-mode t)
+(after! org
+  (setq diary-file (concat org-directory "diary.org")
+        org-default-notes-file (concat org-directory "notes.org")
+        org-startup-folded 'content
+        org-startup-indented 'indent
+        org-agenda-files
+        (list org-dir
+              (concat org-dir "journal/")
+              (concat org-dir "roam/"))
+        org-log-done 'time
+        org-log-into-drawer t
+        org-ellipsis " ▾"
+        org-agenda-start-with-log-mode t
+        org-use-property-inheritance t))
 #+end_src
 
 ** bullets
@@ -324,6 +318,7 @@ need to integrate in doom eval/REPL
   (setq org-superstar-headline-bullets-list
         '("▶" "✚" "●" "◆" "◇")))
 #+end_src
+
 ** todo-Settings
 #+begin_src emacs-lisp
 (setq org-todo-keywords
@@ -397,11 +392,13 @@ need to integrate in doom eval/REPL
 
 ** refiling
 #+begin_src emacs-lisp
-(setq org-refile-targets
-      `((,(concat org-directory "todo.org") :maxlevel . 3)
-        (,(concat org-directory "someday.org") :level . 1)
-        (,(concat org-directory "gcal.org") :maxlevel . 2)))
-(setq org-archive-location (concat org-directory "archive.org_archive::* Archived Tasks"))
+(after! org
+  (setq org-refile-targets
+        `((,(concat org-directory "todo.org") :maxlevel . 3)
+          (,(concat org-directory "someday.org") :level . 1)
+          (,(concat org-directory "gcal.org") :maxlevel . 2)))
+  (setq org-archive-location (concat org-directory "archive.org_archive::* Archived Tasks"))
+  (advice-add 'org-refile :after 'org-save-all-org-buffers))
 #+end_src
 
 ** deft
