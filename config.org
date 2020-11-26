@@ -674,6 +674,28 @@ need to integrate in doom eval/REPL
   )
 #+end_src
 
+*** org-roam server
+#+begin_src emacs-lisp
+(use-package! org-roam-server
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 8080
+        org-roam-server-authenticate nil
+        org-roam-server-export-inline-images t
+        org-roam-server-serve-files nil
+        org-roam-server-served-file-extensions '("pdf" "mp4" "ogv")
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20)
+  (defun org-roam-server-open ()
+    "Ensure the server is active, then open the roam graph."
+    (interactive)
+    (org-roam-server-mode 1)
+    (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))
+#+end_src
+
 ** COMMENT org-brain
 *** setup
 #+begin_src emacs-lisp
@@ -846,4 +868,11 @@ _u_: User Playlists      _r_  : Repeat            _d_: Device
     ("q" quit-window "quit" :color blue))
 #+END_SRC
     
-    
+
+** elcord
+#+begin_src emacs-lisp
+(use-package! elcord
+  :config
+  (elcord-mode)
+  (setq elcord-use-major-mode-as-main-icon t))
+#+end_src

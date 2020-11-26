@@ -58,3 +58,7 @@
 (package! dired-single)
 (package! dired-open)
 (package! org-super-agenda)
+(package! org-roam-server)
+
+(package! selectric-mode)
+(package! elcord)
