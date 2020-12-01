@@ -764,6 +764,20 @@ need to integrate in doom eval/REPL
 (add-to-list 'org-structure-template-alist '("S" . "src emacs-lisp"))
 #+end_src
 
+* tools
+** tramp
+#+begin_src emacs-lisp
+(use-package! tramp
+  :config
+  (add-to-list 'tramp-default-user-alist
+               '("ssh" nil "root")))
+#+end_src
+** magit
+#+begin_src emacs-lisp
+(map! :map magit-mode-map
+      :nv "g r" 'magit-refresh)
+#+end_src
+
 * ui
 ** themes
 #+begin_src emacs-lisp
