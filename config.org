@@ -324,17 +324,19 @@ need to integrate in doom eval/REPL
 ** todo-Settings
 #+begin_src emacs-lisp
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+      (quote ((sequence "TODO(t)" "PROJECT(p)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "DELEGATED(m@/!)" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
 (with-no-warnings
   (custom-declare-face '+org-todo-active  '((t (:inherit (bold font-lock-constant-face org-todo)))) "")
   (custom-declare-face '+org-todo-project '((t (:inherit (bold font-lock-doc-face org-todo)))) "")
   (custom-declare-face '+org-todo-onhold  '((t (:inherit (bold warning org-todo)))) ""))
 (setq org-todo-keyword-faces
       (quote (("NEXT" . +org-todo-active)
-              ("WAITING" . +org-todo-project)
-              ("HOLD" . +org-todo-onhold))))
+              ("PROJECT" . +org-todo-project)
+              ("HOLD" . +org-todo-onhold)
+              ("WAITING" . +org-todo-onhold))))
 #+end_src
+
 ** super-agenda
 #+begin_src emacs-lisp
 (use-package! org-super-agenda
@@ -562,7 +564,8 @@ need to integrate in doom eval/REPL
           ("@home" . ?h)
           ("@work" . ?w)
           ("@computer" . ?c)
-          ("@smartphone" . ?s))))
+          ("@smartphone" . ?s)
+          ("game" . ?g))))
 #+end_src
 
 ** capture
@@ -577,6 +580,9 @@ need to integrate in doom eval/REPL
         ("a" "Appointment" entry
          (file+headline ,(concat org-directory "gcal.org") "Appointment")
          "* %?\n%^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
+        ("d" "Deadline" entry
+         (file+headline ,(concat org-directory "gcal.org") "Deadline")
+         "* %?\nDEADLINE: %^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
         ("n" "Personal notes" entry
          (file+headline +org-capture-notes-file "Inbox")
          "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%a\n%i" :prepend t)
