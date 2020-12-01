@@ -377,7 +377,15 @@ need to integrate in doom eval/REPL
                              :order 90)
                             (:discard (:tag ("Chore" "Routine" "Daily")))))))))
           ("G" "GTD Block View"
-           ((alltodo "" ((org-agenda-overriding-header "")
+           ((agenda "" ((org-agenda-span 'day)
+                        (org-agenda-start-day nil)
+                        (org-super-agenda-groups
+                         '((:name "Today"
+                            :time-grid t
+                            :date today
+                            :scheduled today
+                            :order 1)))))
+            (alltodo "" ((org-agenda-overriding-header "")
                          (org-super-agenda-groups
                           '((:name "Work"
                              :and (:todo "NEXT" :tag "@work")
@@ -393,13 +401,14 @@ need to integrate in doom eval/REPL
                              :order 1)
                             (:name "Smartphone"
                              :and (:todo "NEXT" :tag "@smartphone")
-                             :order 3))))))))))
-(setq org-agenda-todo-ignore-scheduled 'future
-      org-agenda-tags-todo-honor-ignore-options t
-      org-agenda-fontify-priorities t)
-(setq org-super-agenda-header-map (make-sparse-keymap))
-:config
-(org-super-agenda-mode)
+                             :order 3)
+                            (:discard (:anything))))))))))
+  (setq org-agenda-todo-ignore-scheduled 'future
+        org-agenda-tags-todo-honor-ignore-options t
+        org-agenda-fontify-priorities t)
+  (setq org-super-agenda-header-map (make-sparse-keymap))
+  :config
+  (org-super-agenda-mode))
 #+end_src
 
 *** COMMENT custom-agenda
@@ -790,8 +799,7 @@ need to integrate in doom eval/REPL
 (setq doom-font (font-spec :family "Fira Code" :size 16)
       doom-variable-pitch-font (font-spec :family "FreeSans")
       doom-big-font (font-spec :family "Fira Code" :size 25))
-;; (use-package! fira-code-mode
-;;   :ghook 'prog-mode-hook)
+(setq +ligatures-in-modes '(not special-mode comint-mode eshell-mode term-mode vterm-mode org-agenda-mode))
 #+end_src
 
 ** minibuffer
