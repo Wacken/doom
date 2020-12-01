@@ -693,7 +693,10 @@ need to integrate in doom eval/REPL
     (org-roam-server-mode 1)
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))
 #+end_src
-
+** pandoc-import
+#+begin_src emacs-lisp
+(use-package! org-pandoc-import :after org)
+#+end_src
 ** COMMENT org-brain
 *** setup
 #+begin_src emacs-lisp

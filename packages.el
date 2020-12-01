@@ -59,6 +59,10 @@
 (package! dired-open)
 (package! org-super-agenda)
 (package! org-roam-server)
+(package! org-pandoc-import
+  :recipe (:host github
+           :repo "tecosaur/org-pandoc-import"
+           :files ("*.el" "filters" "preprocessors")))
 
 (package! selectric-mode)
 (package! elcord)
