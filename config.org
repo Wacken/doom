@@ -1,6 +1,6 @@
 * Setup
 #+begin_src emacs-lisp
-
+;;; config.el -*- lexical-binding: t; -*-
 ;; (require 'exwm)
 ;; (require 'exwm-config)
 ;; (exwm-config-default)
@@ -51,8 +51,7 @@
 
  "a"               'org-agenda
  "A"               'org-switchb
- "T"               'org-capture
- )
+ "T"               'org-capture)
 #+end_src
 
 ** evil
@@ -78,6 +77,7 @@
   :init
   (define-key!
     [remap describe-symbol] #'counsel-describe-symbol)
+  ;; [remap org-set-tags-command] nil)
   :config
   (setq ivy-count-format "[%d/%d]")
   (setq enable-recursive-minibuffers t)
@@ -869,7 +869,6 @@ _u_: User Playlists      _r_  : Repeat            _d_: Device
     ("q" quit-window "quit" :color blue))
 #+END_SRC
     
-
 ** elcord
 #+begin_src emacs-lisp
 (use-package! elcord
