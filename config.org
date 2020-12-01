@@ -294,21 +294,23 @@ need to integrate in doom eval/REPL
 #+begin_src emacs-lisp
 (defconst org-dir "~/Files/Org/")
 (setq org-directory org-dir)
+(setq org-roam-directory (concat org-dir "references"))
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (after! org
-  (setq diary-file (concat org-directory "diary.org")
-        org-default-notes-file (concat org-directory "notes.org")
+  (setq org-default-notes-file (concat org-directory "notes.org")
         org-startup-folded 'content
         org-startup-indented 'indent
         org-agenda-files
-        (list org-dir
-              (concat org-dir "journal/")
-              (concat org-dir "roam/"))
+        (list (concat org-dir "todo.org")
+              (concat org-dir "inbox.org")
+              (concat org-dir "gcal.org")
+              (concat org-dir "habits.org"))
         org-log-done 'time
         org-log-into-drawer t
         org-ellipsis " ▾"
         org-agenda-start-with-log-mode t
-        org-use-property-inheritance t))
+        org-use-property-inheritance t
+        org-deadline-warning-days 7))
 #+end_src
 
 ** bullets
@@ -654,6 +656,7 @@ need to integrate in doom eval/REPL
 ** noter
 #+begin_src emacs-lisp
 (setq org-noter-always-create-frame nil)
+(setq org-noter-notes-search-path (concat org-directory "references/books"))
 #+end_src
 
 ** org-habit
@@ -668,12 +671,7 @@ need to integrate in doom eval/REPL
 
 ** org-roam
 #+begin_src emacs-lisp
-(use-package! org-roam
-  :init
-  (setq org-roam-directory (concat org-dir "roam/"))
-  )
 #+end_src
-
 *** org-roam server
 #+begin_src emacs-lisp
 (use-package! org-roam-server
