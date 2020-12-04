@@ -294,11 +294,10 @@ need to integrate in doom eval/REPL
 #+begin_src emacs-lisp
 (defconst org-dir "~/Files/Org/")
 (setq org-directory org-dir)
-(setq org-roam-directory (concat org-dir "references"))
+(setq org-roam-directory org-directory)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (after! org
-  (setq org-default-notes-file (concat org-directory "notes.org")
-        org-startup-folded 'content
+  (setq org-startup-folded 'content
         org-startup-indented 'indent
         org-agenda-files
         (list (concat org-dir "todo.org")
@@ -555,7 +554,7 @@ need to integrate in doom eval/REPL
 ** tags
 #+begin_src emacs-lisp
 (after! org
-  (setq org-tags-column 0)
+  (setq org-tags-column -80)
   (setq org-tag-alist
         '((:startgroup)
                                         ; Put mutually exclusive tags here
@@ -565,67 +564,10 @@ need to integrate in doom eval/REPL
           ("@work" . ?w)
           ("@computer" . ?c)
           ("@smartphone" . ?s)
-          ("game" . ?g))))
+          ("game" . ?g)
+          ("ignore" . ?i))))
 #+end_src
 
-** capture
-#+begin_src emacs-lisp
-(setq org-capture-templates
-      `(("t" "Todo [inbox]" entry
-         (file+headline ,(concat org-directory "inbox.org") "Tasks")
-         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%a\n%i" :empty-lines 1)
-        ("T" "Todo No Reference [inbox]" entry
-         (file+headline ,(concat org-directory "inbox.org") "Tasks")
-         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i" :empty-lines 1)
-        ("a" "Appointment" entry
-         (file+headline ,(concat org-directory "gcal.org") "Appointment")
-         "* %?\n%^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
-        ("d" "Deadline" entry
-         (file+headline ,(concat org-directory "gcal.org") "Deadline")
-         "* %?\nDEADLINE: %^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
-        ("n" "Personal notes" entry
-         (file+headline +org-capture-notes-file "Inbox")
-         "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%a\n%i" :prepend t)
-        ("N" "Personal notes No Reference" entry
-         (file+headline +org-capture-notes-file "Inbox")
-         "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i" :prepend t)
-        ("L" "Link" entry
-         (file+headline +org-capture-notes-file "Inbox")
-         "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%x\n%i" :prepend t)))
-#+end_src
-
-*** COMMENT old
-#+begin_src emacs-lisp
-(("a" "Appointment" entry
-  (file+headline "~/Files/Org/gcal.org" "Appointment")
-  "* %i%? \n %U")
- ("i" "Todo [inbox]" entry
-  (file+headline "~/Files/Org/inbox.org" "Tasks")
-  "* TODO %i%?")
- ("t" "Personal todo" entry
-  (file+headline +org-capture-todo-file "Inbox")
-  "* [ ] %?\n%i\n%a" :prepend t)
- ("n" "Personal notes" entry
-  (file+headline +org-capture-notes-file "Inbox")
-  "* %u %?\n%i\n%a" :prepend t)
- ("j" "Journal" entry
-  (file+olp+datetree +org-capture-journal-file)
-  "* %U %?\n%i\n%a" :prepend t)
- ("p" "Templates for projects")
- ("pt" "Project-local todo" entry
-  (file+headline +org-capture-project-todo-file "Inbox")
-  "* TODO %?\n%i\n%a" :prepend t)
- ("pn" "Project-local notes" entry
-  (file+headline +org-capture-project-notes-file "Inbox")
-  "* %U %?\n%i\n%a" :prepend t)
- ("pc" "Project-local changelog" entry
-  (file+headline +org-capture-project-changelog-file "Unreleased")
-  "* %U %?\n%i\n%a" :prepend t)
- ("o" "Centralized templates for projects")
- ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
- ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
- ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
-#+end_src
 ** appt
 #+begin_src emacs-lisp
 (defun bh/org-agenda-to-appt () ; Erase all reminders and rebuilt reminders for today from the agenda
@@ -664,14 +606,75 @@ need to integrate in doom eval/REPL
 #+begin_src emacs-lisp
 (setq org-journal-date-prefix "#+TITLE: "
       org-journal-time-prefix "* "
-      org-journal-date-format "%a, %Y-%m-%d"
-      org-journal-file-format "%Y-%m-%d.org")
+      org-journal-date-format "%a, %d-%m-%Y"
+      org-journal-file-format "%Y-%m-%d.org"
+      org-journal-dir org-directory)
+(defun org-journal-find-location ()
+  ;; Open today's journal, but specify a non-nil prefix argument in order to
+  ;; inhibit inserting the heading; org-capture will insert the heading.
+  (org-journal-new-entry t)
+  (unless (eq org-journal-file-type 'daily)
+    (org-narrow-to-subtree))
+  (goto-char (point-max)))
 #+end_src
 
+** capture
+#+begin_src emacs-lisp
+(setq org-capture-templates
+      `(("t" "Todo [inbox]" entry
+         (file ,(concat org-directory "inbox.org"))
+         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%a\n%i" :empty-lines 1)
+        ("T" "Todo No Reference [inbox]" entry
+         (file ,(concat org-directory "inbox.org"))
+         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i" :empty-lines 1)
+        ("a" "Appointment" entry
+         (file+headline ,(concat org-directory "gcal.org") "Appointment")
+         "* %?\n%^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
+        ("d" "Deadline" entry
+         (file ,(concat org-directory "inbox.org"))
+         "* TODO %?\nDEADLINE: %^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
+        ("L" "Link" entry
+         (file ,(concat org-directory "inbox.org"))
+         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%x\n%i")
+        ("c" "org-protocol-capture" entry
+         (file ,(concat org-directory "inbox.org"))
+         "* TODO [[%:link][%:description]]\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i" :immediate-finish t)
+        ("J" "Journal entry" plain
+         (function org-journal-find-location)
+         "* %(format-time-string org-journal-time-format)\n%i\n%?")))
+#+end_src
+
+
+*** COMMENT old
+#+begin_src emacs-lisp
+ (("t" "Personal todo" entry
+  (file+headline +org-capture-todo-file "Inbox")
+  "* [ ] %?\n%i\n%a" :prepend t)
+ ("n" "Personal notes" entry
+  (file+headline +org-capture-notes-file "Inbox")
+  "* %u %?\n%i\n%a" :prepend t)
+ ("j" "Journal" entry
+  (file+olp+datetree +org-capture-journal-file)
+  "* %U %?\n%i\n%a" :prepend t)
+ ("p" "Templates for projects")
+ ("pt" "Project-local todo" entry
+  (file+headline +org-capture-project-todo-file "Inbox")
+  "* TODO %?\n%i\n%a" :prepend t)
+ ("pn" "Project-local notes" entry
+  (file+headline +org-capture-project-notes-file "Inbox")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("pc" "Project-local changelog" entry
+  (file+headline +org-capture-project-changelog-file "Unreleased")
+  "* %U %?\n%i\n%a" :prepend t)
+ ("o" "Centralized templates for projects")
+ ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+ ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+ ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
+#+end_src
 ** noter
 #+begin_src emacs-lisp
 (setq org-noter-always-create-frame nil)
-(setq org-noter-notes-search-path (concat org-directory "references/books"))
+(setq org-noter-notes-search-path org-directory)
 #+end_src
 
 ** org-habit
@@ -683,14 +686,16 @@ need to integrate in doom eval/REPL
 (load! "local-packages/org-habit-plus")
 (add-to-list 'org-modules 'org-habit-plus)
 #+end_src
-
-** org-roam
+** org-protocol
 #+begin_src emacs-lisp
+;; (require 'org-protocol)
 #+end_src
+** org-roam
 *** org-roam server
 #+begin_src emacs-lisp
 (use-package! org-roam-server
   :config
+  ;; (org-roam-server-mode)
   (setq org-roam-server-host "127.0.0.1"
         org-roam-server-port 8080
         org-roam-server-authenticate nil
@@ -705,9 +710,10 @@ need to integrate in doom eval/REPL
   (defun org-roam-server-open ()
     "Ensure the server is active, then open the roam graph."
     (interactive)
-    (org-roam-server-mode 1)
+    ;; (org-roam-server-mode)
     (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))
 #+end_src
+
 ** pandoc-import
 #+begin_src emacs-lisp
 (use-package! org-pandoc-import :after org)
