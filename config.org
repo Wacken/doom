@@ -623,10 +623,10 @@ need to integrate in doom eval/REPL
 (setq org-capture-templates
       `(("t" "Todo [inbox]" entry
          (file ,(concat org-directory "inbox.org"))
-         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%a\n%i" :empty-lines 1)
+         "* TODO %^{Title|ToOrder}\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%a\n%i\n%?" :empty-lines 1)
         ("T" "Todo No Reference [inbox]" entry
          (file ,(concat org-directory "inbox.org"))
-         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i" :empty-lines 1)
+         "* TODO %^{Title|ToOrder}\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i\n%?" :empty-lines 1)
         ("a" "Appointment" entry
          (file+headline ,(concat org-directory "gcal.org") "Appointment")
          "* %?\n%^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
@@ -635,7 +635,7 @@ need to integrate in doom eval/REPL
          "* TODO %?\nDEADLINE: %^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
         ("L" "Link" entry
          (file ,(concat org-directory "inbox.org"))
-         "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%x\n%i")
+         "* TODO %^{Title|ToOrder}\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%x\n%i\n%?")
         ("c" "org-protocol-capture" entry
          (file ,(concat org-directory "inbox.org"))
          "* TODO [[%:link][%:description]]\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i" :immediate-finish t)
@@ -643,7 +643,6 @@ need to integrate in doom eval/REPL
          (function org-journal-find-location)
          "* %(format-time-string org-journal-time-format)\n%i\n%?")))
 #+end_src
-
 
 *** COMMENT old
 #+begin_src emacs-lisp
