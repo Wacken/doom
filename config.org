@@ -300,10 +300,11 @@ need to integrate in doom eval/REPL
   (setq org-startup-folded 'content
         org-startup-indented 'indent
         org-agenda-files
-        (list (concat org-dir "todo.org")
-              (concat org-dir "inbox.org")
-              (concat org-dir "gcal.org")
-              (concat org-dir "habits.org"))
+        (list org-dir)
+        ;; (concat org-dir "todo.org")
+        ;; (concat org-dir "inbox.org")
+        ;; (concat org-dir "gcal.org")
+        ;; (concat org-dir "habits.org"))
         org-log-done 'time
         org-log-into-drawer t
         org-ellipsis " ▾"
@@ -405,6 +406,7 @@ need to integrate in doom eval/REPL
                              :and (:todo "NEXT" :tag "@smartphone")
                              :order 3)
                             (:discard (:anything))))))))))
+  ;; ((org-agenda-files (remove (concat org-dir "gcal.org") org-agenda-files))))))
   (setq org-agenda-todo-ignore-scheduled 'future
         org-agenda-tags-todo-honor-ignore-options t
         org-agenda-fontify-priorities t)
@@ -695,13 +697,18 @@ need to integrate in doom eval/REPL
 (setq org-roam-capture-templates
       '(("d" "default" plain #'org-roam-capture--get-point
          "%i\n%?"
-         :file-name "%<%Y%m%d%H%M%S>-${slug}"
-         :head "#+TITLE: ${title}\n\n"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n"
          :unnarrowed t)
         ("r" "reference" plain #'org-roam-capture--get-point
          "* Metadata\n- topic :: \n- source :: %x\n- author :: \n\n%?"
-         :file-name "%<%Y%m%d%H%M%S>-${slug}"
+         :file-name "${slug}"
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Reference %^{Type|Article|Lecture|Video|Book} %^{Status|Read|Reading|WantToRead|Completed}\n\n"
+         :unnarrowed t)
+        ("p" "project" plain #'org-roam-capture--get-point
+         "* Metadata\n- keys :: \n- goals :: \n\n%?"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Project %^{Status|Archive|Active}\n\n"
          :unnarrowed t)))
 #+end_src
 
