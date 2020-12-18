@@ -699,9 +699,9 @@ need to integrate in doom eval/REPL
          :head "#+TITLE: ${title}\n\n"
          :unnarrowed t)
         ("r" "reference" plain #'org-roam-capture--get-point
-         "* Metadata\n- type :: [[file:20201209212924-reference.org][Reference]],%^{Kind|[[file:20201209222652-video.org][Video]]|[[file:20201209222853-lecture.org][Lecture]]|[[file:20201209223211-article.org][Article]]|[[file:20201209223231-book.org][Book]]}\n- topic :: \n- status :: %^{Status|[[file:20201210174159-reading.org][Reading]]|[[file:20201210173644-read.org][Read]]|[[file:20201210174144-want_to_read.org][Want to Read]]|[[file:20201210173713-completed.org][Completed]]}\n- source :: %x\n- author :: \n\n%?"
+         "* Metadata\n- topic :: \n- source :: %x\n- author :: \n\n%?"
          :file-name "%<%Y%m%d%H%M%S>-${slug}"
-         :head "#+TITLE: ${title}\n#+CREATED: %U\n\n"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Reference %^{Type|Article|Lecture|Video|Book} %^{Status|Read|Reading|WantToRead|Completed}\n\n"
          :unnarrowed t)))
 #+end_src
 
