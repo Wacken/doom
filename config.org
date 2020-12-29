@@ -405,7 +405,26 @@ need to integrate in doom eval/REPL
                             (:name "Smartphone"
                              :and (:todo "NEXT" :tag "@smartphone")
                              :order 3)
+                            (:name "Other Next"
+                             :todo "NEXT"
+                             :order 10)
+                            (:discard (:anything))))))))
+          ("P" "Projects"
+           ((alltodo "" ((org-super-agenda-groups
+                          '((:name "Projects Next"
+                             :and (:todo "NEXT" :tag "Project")
+                             :order 1)
+                            (:name "Projects Active"
+                             :and (:todo "PROJECT" :tag "Project" :children t)
+                             :order 5)
+                            (:name "Projects To Cleanup"
+                             :and (:todo "PROJECT")
+                             :order 15)
+                            (:name "Rest To Cleanup"
+                             :and (:children t)
+                             :order 20)
                             (:discard (:anything))))))))))
+
   ;; ((org-agenda-files (remove (concat org-dir "gcal.org") org-agenda-files))))))
   (setq org-agenda-todo-ignore-scheduled 'future
         org-agenda-tags-todo-honor-ignore-options t
@@ -708,7 +727,12 @@ need to integrate in doom eval/REPL
         ("p" "project" plain #'org-roam-capture--get-point
          "* Metadata\n- keys :: \n- goals :: \n\n%?"
          :file-name "${slug}"
-         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Project %^{Status|Archive|Active}\n\n"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Project %^{Status|Archive|Active}\n#+FILETAGS: Project %^{Status|Archive|Active}\n\n"
+         :unnarrowed t)
+        ("g" "goal" plain #'org-roam-capture--get-point
+         "* Metadata\n- Define Success :: %?\n- Associated Projects/Habits :: \n\n* TODO Next Assessment\nSCHEDULED: %^T\n\n* TODO Completion\nDEADLINE: %^T"
+         :file-name "${slug}"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Goal %^{Status|Short-Term|Long-Term}\n\n"
          :unnarrowed t)))
 #+end_src
 

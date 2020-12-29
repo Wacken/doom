@@ -64,6 +64,7 @@
            :repo "tecosaur/org-pandoc-import"
            :files ("*.el" "filters" "preprocessors")))
 (package! company-org-roam)
+(package! org-ql)
 
 (package! selectric-mode)
 (package! elcord)
