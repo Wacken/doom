@@ -293,6 +293,7 @@ need to integrate in doom eval/REPL
 ** setup
 #+begin_src emacs-lisp
 (defconst org-dir "~/Files/Org/")
+(defconst org-agenda-dir (concat org-dir "Agenda/"))
 (setq org-directory org-dir)
 (setq org-roam-directory org-directory)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
@@ -300,7 +301,8 @@ need to integrate in doom eval/REPL
   (setq org-startup-folded 'content
         org-startup-indented 'indent
         org-agenda-files
-        (list org-dir)
+        (list ;; org-dir
+           (concat org-dir "Agenda"))
         ;; (concat org-dir "todo.org")
         ;; (concat org-dir "inbox.org")
         ;; (concat org-dir "gcal.org")
@@ -311,7 +313,9 @@ need to integrate in doom eval/REPL
         org-agenda-start-with-log-mode t
         org-use-property-inheritance t
         org-deadline-warning-days 7
-        org-hide-emphasis-markers t))
+        org-hide-emphasis-markers t
+        org-id-link-to-org-use-id t
+        org-roam-prefer-id-links t))
 #+end_src
 
 ** bullets
@@ -380,7 +384,7 @@ need to integrate in doom eval/REPL
                              :order 90)
                             (:discard (:tag ("Chore" "Routine" "Daily")))))))))
           ("G" "GTD Block View"
-           ((agenda "" ((org-agenda-span 'day)
+           ((agenda "" ((org-agenda-span 2)
                         (org-agenda-start-day nil)
                         (org-super-agenda-groups
                          '((:name "Today"
@@ -415,17 +419,22 @@ need to integrate in doom eval/REPL
                              :and (:todo "NEXT" :tag "Project")
                              :order 1)
                             (:name "Projects Active"
-                             :and (:todo "PROJECT" :tag "Project" :children t)
+                             :and (:todo "PROJECT" :tag "Project" :tag "Active")
                              :order 5)
+                            (:name "Projects Archived"
+                             :and (:todo "PROJECT" :tag "Project" :tag "Archive")
+                             :order 10)
                             (:name "Projects To Cleanup"
-                             :and (:todo "PROJECT")
+                             :todo "PROJECT"
                              :order 15)
                             (:name "Rest To Cleanup"
-                             :and (:children t)
+                             :children t
                              :order 20)
+                            ;; (:name "Project Other"
+                            ;;  :tag "Project"
+                            ;;  :order 25)
                             (:discard (:anything))))))))))
 
-  ;; ((org-agenda-files (remove (concat org-dir "gcal.org") org-agenda-files))))))
   (setq org-agenda-todo-ignore-scheduled 'future
         org-agenda-tags-todo-honor-ignore-options t
         org-agenda-fontify-priorities t)
@@ -610,9 +619,9 @@ need to integrate in doom eval/REPL
 #+begin_src emacs-lisp
 (after! org
   (setq org-refile-targets
-        `((,(concat org-directory "todo.org") :maxlevel . 3)
-          (,(concat org-directory "someday.org") :level . 1)
-          (,(concat org-directory "gcal.org") :maxlevel . 2)))
+        `((,(concat org-agenda-dir "todo.org") :maxlevel . 3)
+          (,(concat org-agenda-dir "someday.org") :level . 1)
+          (,(concat org-agenda-dir "gcal.org") :maxlevel . 2)))
   (setq org-archive-location (concat org-directory "archive.org_archive::* Archived Tasks"))
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 #+end_src
@@ -644,22 +653,22 @@ need to integrate in doom eval/REPL
 #+begin_src emacs-lisp
 (setq org-capture-templates
       `(("t" "Todo [inbox]" entry
-         (file ,(concat org-directory "inbox.org"))
+         (file ,(concat org-agenda-dir "inbox.org"))
          "* TODO %^{Title|ToOrder}\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%a\n%i\n%?" :empty-lines 1)
         ("T" "Todo No Reference [inbox]" entry
-         (file ,(concat org-directory "inbox.org"))
+         (file ,(concat org-agenda-dir "inbox.org"))
          "* TODO %^{Title|ToOrder}\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i\n%?" :empty-lines 1)
         ("a" "Appointment" entry
-         (file+headline ,(concat org-directory "gcal.org") "Appointment")
+         (file+headline ,(concat org-agenda-dir "gcal.org") "Appointment")
          "* %?\n%^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
         ("d" "Deadline" entry
-         (file ,(concat org-directory "inbox.org"))
+         (file ,(concat org-agenda-dir "inbox.org"))
          "* TODO %?\nDEADLINE: %^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
         ("L" "Link" entry
-         (file ,(concat org-directory "inbox.org"))
+         (file ,(concat org-agenda-dir "inbox.org"))
          "* TODO %^{Title|ToOrder}\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%x\n%i\n%?")
         ("c" "org-protocol-capture" entry
-         (file ,(concat org-directory "inbox.org"))
+         (file ,(concat org-agenda-dir "inbox.org"))
          "* TODO [[%:link][%:description]]\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i" :immediate-finish t)
         ("J" "Journal entry" plain
          (function org-journal-find-location)
@@ -725,13 +734,13 @@ need to integrate in doom eval/REPL
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Reference %^{Type|Article|Lecture|Video|Book} %^{Status|Read|Reading|WantToRead|Completed}\n\n"
          :unnarrowed t)
         ("p" "project" plain #'org-roam-capture--get-point
-         "* Metadata\n- keys :: \n- goals :: \n\n%?"
-         :file-name "${slug}"
+         "* Metadata\n- keys :: \n- goals :: \n\n* PROJECT Tasks\n** TODO %?"
+         :file-name "Agenda/${slug}"
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Project %^{Status|Archive|Active}\n#+FILETAGS: Project %^{Status|Archive|Active}\n\n"
          :unnarrowed t)
         ("g" "goal" plain #'org-roam-capture--get-point
          "* Metadata\n- Define Success :: %?\n- Associated Projects/Habits :: \n\n* TODO Next Assessment\nSCHEDULED: %^T\n\n* TODO Completion\nDEADLINE: %^T"
-         :file-name "${slug}"
+         :file-name "Agenda/${slug}"
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Goal %^{Status|Short-Term|Long-Term}\n\n"
          :unnarrowed t)))
 #+end_src
