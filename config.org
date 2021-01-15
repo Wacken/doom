@@ -427,12 +427,9 @@ need to integrate in doom eval/REPL
                             (:name "Projects To Cleanup"
                              :todo "PROJECT"
                              :order 15)
-                            (:name "Rest To Cleanup"
-                             :children t
-                             :order 20)
-                            ;; (:name "Project Other"
-                            ;;  :tag "Project"
-                            ;;  :order 25)
+                            ;; (:name "Rest To Cleanup"
+                            ;;  :children t
+                            ;;  :order 20)
                             (:discard (:anything))))))))))
 
   (setq org-agenda-todo-ignore-scheduled 'future
@@ -633,7 +630,7 @@ need to integrate in doom eval/REPL
       deft-recursive t)
 #+end_src
 
-** journal
+** COMMENT journal
 #+begin_src emacs-lisp
 (setq org-journal-date-prefix "#+TITLE: "
       org-journal-time-prefix "* "
