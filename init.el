@@ -15,7 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 (doom! :input
-       ;;japanese
+       japanese
 
        :completion
        (company +tng)                   ; the ultimate code completion backend +childframe
