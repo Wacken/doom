@@ -128,7 +128,7 @@
        ;;idris             ;
        json              ; at least it ain't xml
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster matlab
        ;;kotlin            ; a better, slicker java(script)
        latex             ; writing papers in emacs has never been so fun
@@ -159,8 +159,8 @@
        ;;solidity          ; do you need a blockchain? no.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; earth and moon in alignment for performance.
-       (web +html)               ; the tubes
-       ;;yaml              ; json, but readable
+       (web +html +css)               ; the tubes
+       yaml              ; json, but readable
 
        :email
        ;;(mu4e +gmail)
