@@ -394,29 +394,47 @@ need to integrate in doom eval/REPL
                             :order 1)))))
             (alltodo "" ((org-agenda-overriding-header "")
                          (org-super-agenda-groups
-                          '((:name "Work"
-                             :and (:todo "NEXT" :tag "@work")
-                             :order 5)
-                            (:name "Home"
-                             :and (:todo "NEXT" :tag "@home")
-                             :order 2)
-                            (:name "errand"
-                             :and (:todo "NEXT" :tag "@errand")
-                             :order 4)
+                          '((:name "Long-term Goals"
+                             :and (:tag "Goal" :tag "Long-term")
+                             :order 1
+                             :transformer (--> it
+                                            (first (split-string it ":"))
+                                            (propertize it 'face '(:foreground "Green"))))
+                            (:name "Short-term Goals"
+                             :and (:tag "Goal" :tag "Short-term")
+                             :order 2
+                             :transformer (--> it
+                                            (first (split-string it ":"))
+                                            (propertize it 'face '(:foreground "Red"))))
                             (:name "Computer"
                              :and (:todo "NEXT" :tag "@computer")
                              :order 1)
+                            (:name "Home"
+                             :and (:todo "NEXT" :tag "@home")
+                             :order 2)
                             (:name "Smartphone"
                              :and (:todo "NEXT" :tag "@smartphone")
                              :order 3)
+                            (:name "errand"
+                             :and (:todo "NEXT" :tag "@errand")
+                             :order 4)
+                            (:name "Work"
+                             :and (:todo "NEXT" :tag "@work")
+                             :order 5)
                             (:name "Other Next"
-                             :todo "NEXT"
+                             :and (:todo "NEXT" :tag "Active")
                              :order 10)
+                            (:name "Hold"
+                             :and (:todo "HOLD" :tag "Project" :tag "Active")
+                             :order 19)
+                            (:name "Waiting"
+                             :and (:todo "WAITING" :tag "Project" :tag "Active")
+                             :order 20)
                             (:discard (:anything))))))))
           ("P" "Projects"
            ((alltodo "" ((org-super-agenda-groups
                           '((:name "Projects Next"
-                             :and (:todo "NEXT" :tag "Project")
+                             :and (:todo "NEXT" :tag "Project" :tag "Active")
                              :order 1)
                             (:name "Projects Active"
                              :and (:todo "PROJECT" :tag "Project" :tag "Active")
@@ -738,7 +756,7 @@ need to integrate in doom eval/REPL
         ("g" "goal" plain #'org-roam-capture--get-point
          "* Metadata\n- Define Success :: %?\n- Associated Projects/Habits :: \n\n* TODO Next Assessment\nSCHEDULED: %^T\n\n* TODO Completion\nDEADLINE: %^T"
          :file-name "Agenda/${slug}"
-         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Goal %^{Status|Short-Term|Long-Term}\n\n"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Goal %^{Status|Short-Term|Long-Term}\n#+FILETAGS: Goal %^{Status|Short-Term|Long-Term}\n\n"
          :unnarrowed t)))
 #+end_src
 
