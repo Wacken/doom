@@ -436,7 +436,12 @@ need to integrate in doom eval/REPL
                           '((:name "Projects Next"
                              :and (:todo "NEXT" :tag "Project" :tag "Active")
                              :order 1)
-                            (:name "Projects Active"
+                            (:name "Projects Stuck"
+                             :and (:todo "PROJECT" :not (:children "NEXT") :tag "Project" :tag "Active")
+                             :order 2
+                             :discard (:anything))))))
+            (alltodo "" ((org-super-agenda-groups
+                          '((:name "Projects Active"
                              :and (:todo "PROJECT" :tag "Project" :tag "Active")
                              :order 5)
                             (:name "Projects Archived"
@@ -445,9 +450,9 @@ need to integrate in doom eval/REPL
                             (:name "Projects To Cleanup"
                              :todo "PROJECT"
                              :order 15)
-                            ;; (:name "Rest To Cleanup"
-                            ;;  :children t
-                            ;;  :order 20)
+                            (:name "Rest To Cleanup"
+                             :children t
+                             :order 20)
                             (:discard (:anything))))))))))
 
   (setq org-agenda-todo-ignore-scheduled 'future
