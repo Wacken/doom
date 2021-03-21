@@ -68,3 +68,7 @@
 
 (package! selectric-mode)
 (package! elcord)
+(package! nroam
+  :recipe (:host github
+           :branch "master"
+           :repo "NicolasPetton/nroam"))

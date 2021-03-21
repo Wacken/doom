@@ -792,7 +792,16 @@ need to integrate in doom eval/REPL
   :config
   (push 'company-org-roam company-backends))
 #+end_src
-
+*** nroam
+:PROPERTIES:
+:ID:       fec6a1f4-5089-4543-b29b-8aa4420dea1f
+:END:
+#+begin_src emacs-lisp
+;; (use-package nroam
+;;   :after org-roam
+;;   :config
+;;   (add-hook 'org-mode-hook #'nroam-setup-maybe))
+#+end_src
 ** pandoc-import
 #+begin_src emacs-lisp
 (use-package! org-pandoc-import :after org)
