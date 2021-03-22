@@ -317,7 +317,18 @@ need to integrate in doom eval/REPL
         org-id-link-to-org-use-id t
         org-roam-prefer-id-links t))
 #+end_src
+** ids
+#+begin_src emacs-lisp
+(defun my/org-add-ids-to-headlines-in-file ()
+  "Add ID properties to all headlines in the current file which
+do not already have one."
+  (interactive)
+  (org-map-entries 'org-id-get-create))
 
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (add-hook 'before-save-hook 'my/org-add-ids-to-headlines-in-file nil 'local)))
+#+end_src
 ** bullets
 #+begin_src emacs-lisp
 (use-package! org-superstar
