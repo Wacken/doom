@@ -401,7 +401,7 @@ need to integrate in doom eval/REPL
                                             (first (split-string it ":"))
                                             (propertize it 'face '(:foreground "Green"))))
                             (:name "Short-term Goals"
-                             :and (:tag "Goal" :tag "Short-term")
+                             :and (:todo "PROJECT" :tag "Goal" :tag "Short-term")
                              :order 2
                              :transformer (--> it
                                             (first (split-string it ":"))
@@ -741,6 +741,9 @@ need to integrate in doom eval/REPL
 ;; (require 'org-protocol)
 #+end_src
 ** org-roam
+:PROPERTIES:
+:ID:       7465a2b5-f60d-48d2-8bc5-b13e531d0108
+:END:
 #+begin_src emacs-lisp
 (setq org-roam-capture-templates
       '(("d" "default" plain #'org-roam-capture--get-point
@@ -759,7 +762,7 @@ need to integrate in doom eval/REPL
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Project %^{Status|Archive|Active}\n#+FILETAGS: Project %^{Status|Archive|Active}\n\n"
          :unnarrowed t)
         ("g" "goal" plain #'org-roam-capture--get-point
-         "* Metadata\n- Define Success :: %?\n- Associated Projects/Habits :: \n- Area :: [[id:5382e712-04fb-449c-9a13-e7b3bb076970][My Personal Goals]],\n\n* TODO Next Assessment\nSCHEDULED: %^T\n\n* TODO Completion\nDEADLINE: %^T"
+         "* Metadata\n- Associated Projects/Habits :: %? \n- Area :: [[id:5382e712-04fb-449c-9a13-e7b3bb076970][My Personal Goals]],\n\n* TODO Next Assessment\nSCHEDULED: %^T\n\n* TODO Completion\nDEADLINE: %^T\n\n* PROJECT Sub-Goals\n** TODO \n\n* Templates\n** goal review\n*** TODO everything achived\n*** TODO analyse success\n*** TODO reward\n*** TODO analyse failure\n\n** goal Assessment\n*** TODO Measure progress\n*** TODO Am i happy with progress, if not fix it\n*** TODO Is goal still relevant\n*** TODO harder or easier then expected\n*** TODO Do projects fill in goal\n*** TODO Review projects\n*** TODO See who much resources used, and if more should be used (time, money, support, information)\n\n* Assesment Log\n"
          :file-name "Agenda/${slug}"
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Goal %^{Status|Short-Term|Long-Term}\n#+FILETAGS: Goal %^{Status|Short-Term|Long-Term}\n\n"
          :unnarrowed t)))
