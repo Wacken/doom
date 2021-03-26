@@ -768,12 +768,13 @@ do not already have one."
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Reference %^{Type|Article|Lecture|Video|Book} %^{Status|Read|Reading|WantToRead|Completed}\n\n"
          :unnarrowed t)
         ("p" "project" plain #'org-roam-capture--get-point
-         "* Metadata\n- keys :: \n- goals :: \n\n* PROJECT Tasks\n** TODO %?"
+         "* Metadata\n- keys :: \n\n* PROJECT Tasks\n** TODO %?"
          :file-name "Agenda/${slug}"
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Project %^{Status|Archive|Active}\n#+FILETAGS: Project %^{Status|Archive|Active}\n\n"
          :unnarrowed t)
         ("g" "goal" plain #'org-roam-capture--get-point
-         "* Metadata\n- Associated Projects/Habits :: %? \n- Area :: [[id:5382e712-04fb-449c-9a13-e7b3bb076970][My Personal Goals]],\n\n* TODO Next Assessment\nSCHEDULED: %^T\n\n* TODO Completion\nDEADLINE: %^T\n\n* PROJECT Sub-Goals\n** TODO \n\n* Templates\n** goal review\n*** TODO everything achived\n*** TODO analyse success\n*** TODO reward\n*** TODO analyse failure\n\n** goal Assessment\n*** TODO Measure progress\n*** TODO Am i happy with progress, if not fix it\n*** TODO Is goal still relevant\n*** TODO harder or easier then expected\n*** TODO Do projects fill in goal\n*** TODO Review projects\n*** TODO See who much resources used, and if more should be used (time, money, support, information)\n\n* Assesment Log\n"
+         "* Metadata\n- Associated Projects/Habits :: %? \n- Area :: [[id:f903c964-ffe7-4c56-bea8-0d886ec89c00][My Personal Goals]],\n\n* TODO Next Assessment\nSCHEDULED: %^T\n\n* TODO Completion\nDEADLINE: %^T\n\n* PROJECT Sub-Goals\n** TODO \n\n* Templates\n** goal review\n*** TODO everything achived\n*** TODO analyse success\n*** TODO reward\n*** TODO analyse failure\n\n** goal Assessment\n*** TODO Measure progress\n*** TODO Am i happy with progress, if not fix it\n*** TODO Is goal still relevant\n*** TODO harder or easier then expected\n*** TODO Do projects fill in goal\n*** TODO Review projects\n*** TODO See who much resources used, and if more should be used (time, money, support, information)\n\n* Assesment Log\n"
+
          :file-name "Agenda/${slug}"
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Goal %^{Status|Short-Term|Long-Term}\n#+FILETAGS: Goal %^{Status|Short-Term|Long-Term}\n\n"
          :unnarrowed t)))
