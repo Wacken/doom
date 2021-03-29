@@ -246,7 +246,10 @@ evil-cleverparens
 (use-package! company-statistics
   :ghook 'company-mode-hook)
 #+end_src
-
+*** lsp
+#+begin_src emacs-lisp
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+#+end_src
 ** c#
 *** repl
 need to integrate in doom eval/REPL
@@ -260,7 +263,6 @@ need to integrate in doom eval/REPL
       (switch-to-buffer-other-window b))))
 (set-repl-handler! 'csharp-mode #'my-csharp-repl)
 #+end_src
-
 ** clojure
 *** hydra
 #+begin_src emacs-lisp

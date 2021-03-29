@@ -88,7 +88,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup +dictionary +offline)              ; navigate your code and its documentation
-       lsp
+       (lsp +peek)
        magit                    ; a git porcelain for emacs
        ;; make              ; run make tasks from emacs
        ;;pass              ; password manager for nerds
@@ -110,7 +110,7 @@
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       (csharp +unity)            ; unity, .net, and mono shenanigans
+       (csharp +unity +lsp +dotnet)            ; unity, .net, and mono shenanigans
        data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
