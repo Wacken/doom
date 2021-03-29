@@ -400,7 +400,7 @@ do not already have one."
            ((agenda "" ((org-agenda-span 2)
                         (org-agenda-start-day nil)
                         (org-super-agenda-groups
-                         '((:name "Today"
+                         '((:name "This day"
                             :time-grid t
                             :date today
                             :scheduled today
@@ -466,7 +466,23 @@ do not already have one."
                             (:name "Rest To Cleanup"
                              :children t
                              :order 20)
-                            (:discard (:anything))))))))))
+                            (:discard (:anything))))))))
+          ("L" "Last week"
+           ((agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day "-7d")
+                        (org-super-agenda-groups
+                         '((:time-grid t
+                            :date today
+                            :scheduled today
+                            :order 1)))))))
+          ("N" "Last week"
+           ((agenda "" ((org-agenda-span 7)
+                        (org-agenda-start-day nil)
+                        (org-super-agenda-groups
+                         '((:time-grid t
+                            :date today
+                            :scheduled today
+                            :order 1)))))))))
 
   (setq org-agenda-todo-ignore-scheduled 'future
         org-agenda-tags-todo-honor-ignore-options t
