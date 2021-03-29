@@ -72,3 +72,5 @@
   :recipe (:host github
            :branch "master"
            :repo "NicolasPetton/nroam"))
+
+(package! icicles)
