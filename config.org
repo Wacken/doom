@@ -408,7 +408,7 @@ do not already have one."
             (alltodo "" ((org-agenda-overriding-header "")
                          (org-super-agenda-groups
                           '((:name "Long-term Goals"
-                             :and (:tag "Goal" :tag "Long-term")
+                             :and (:todo "PROJECT" :tag "Goal" :tag "Long-term")
                              :order 1
                              :transformer (--> it
                                             (first (split-string it ":"))
