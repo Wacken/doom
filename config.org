@@ -407,14 +407,20 @@ do not already have one."
                             :order 1)))))
             (alltodo "" ((org-agenda-overriding-header "")
                          (org-super-agenda-groups
-                          '((:name "Long-term Goals"
-                             :and (:todo "PROJECT" :tag "Goal" :tag "Long-term")
+                          '((:name "Future Goals"
+                             :and (:todo "PROJECT" :tag "Goal" :tag "Future" :tag "Active")
+                             :order 1
+                             :transformer (--> it
+                                            (first (split-string it ":"))
+                                            (propertize it 'face '(:foreground "Cyan"))))
+                            (:name "Long-term Goals"
+                             :and (:todo "PROJECT" :tag "Goal" :tag "Long-term" :tag "Active")
                              :order 1
                              :transformer (--> it
                                             (first (split-string it ":"))
                                             (propertize it 'face '(:foreground "Green"))))
                             (:name "Short-term Goals"
-                             :and (:todo "PROJECT" :tag "Goal" :tag "Short-term")
+                             :and (:todo "PROJECT" :tag "Goal" :tag "Short-term" :tag "Active")
                              :order 2
                              :transformer (--> it
                                             (first (split-string it ":"))
