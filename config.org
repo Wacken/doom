@@ -416,7 +416,7 @@ do not already have one."
                              :order 5
                              :transformer (--> it
                                             (first (split-string it ":"))
-                                            (propertize it 'face '(:foreground "Red"))))
+                                            (propertize it 'face '(:foreground "orange"))))
 
                             (:name "Archive Goals"
                              :and (:todo "PROJECT" :tag "Goal")
