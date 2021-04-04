@@ -970,7 +970,9 @@ do not already have one."
 #+begin_src emacs-lisp
 (use-package! elfeed-goodies
   :config
-  (elfeed-goodies/setup))
+  (elfeed-goodies/setup)
+  (setq elfeed-goodies/entry-pane-size 0.5))
+
 #+end_src
 
 ** spotify
