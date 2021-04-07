@@ -30,6 +30,7 @@
 ;; they are implemented.
 
 (setq byte-compile-warnings '(cl-functions)) ; ignore Package cl is depcrecated warning
+;; (setq comp-deferred-compilation t)
 #+end_src
 
 * keybindings
@@ -437,46 +438,46 @@ do not already have one."
                          (org-super-agenda-groups
                           '((:name "Future Goals"
                              :and (:todo "PROJECT" :tag "Goal" :tag "Future" :tag "Active")
-                             :order 1
+                             :order 3
                              :transformer (--> it
                                             (first (split-string it ":"))
                                             (propertize it 'face '(:foreground "Cyan"))))
                             (:name "Long-term Goals"
                              :and (:todo "PROJECT" :tag "Goal" :tag "Long-term" :tag "Active")
-                             :order 1
+                             :order 4
                              :transformer (--> it
                                             (first (split-string it ":"))
                                             (propertize it 'face '(:foreground "Green"))))
                             (:name "Short-term Goals"
                              :and (:todo "PROJECT" :tag "Goal" :tag "Short-term" :tag "Active")
-                             :order 2
+                             :order 5
                              :transformer (--> it
                                             (first (split-string it ":"))
                                             (propertize it 'face '(:foreground "orange"))))
-                            (:name "Computer"
-                             :and (:todo "NEXT" :tag "@computer")
-                             :order 1)
-                            (:name "Home"
-                             :and (:todo "NEXT" :tag "@home")
-                             :order 2)
-                            (:name "Smartphone"
-                             :and (:todo "NEXT" :tag "@smartphone")
-                             :order 3)
-                            (:name "errand"
-                             :and (:todo "NEXT" :tag "@errand")
-                             :order 4)
+                            ;; (:name "Computer"
+                            ;;  :and (:todo "NEXT" :tag "@computer")
+                            ;;  :order 1)
+                            ;; (:name "Home"
+                            ;;  :and (:todo "NEXT" :tag "@home")
+                            ;;  :order 2)
+                            ;; (:name "Smartphone"
+                            ;;  :and (:todo "NEXT" :tag "@smartphone")
+                            ;;  :order 3)
+                            ;; (:name "errand"
+                            ;;  :and (:todo "NEXT" :tag "@errand")
+                            ;;  :order 4)
+                            (:name "Next"
+                             :and (:todo "NEXT" :tag "Active")
+                             :order 25)
                             (:name "Work"
                              :and (:todo "NEXT" :tag "@work")
-                             :order 5)
-                            (:name "Other Next"
-                             :and (:todo "NEXT" :tag "Active")
-                             :order 10)
+                             :order 30)
                             (:name "Hold"
                              :and (:todo "HOLD" :tag "Project" :tag "Active")
-                             :order 19)
+                             :order 45)
                             (:name "Waiting"
                              :and (:todo "WAITING" :tag "Project" :tag "Active")
-                             :order 20)
+                             :order 50)
                             (:discard (:anything))))))))
           ("P" "Projects"
            ((alltodo "" ((org-super-agenda-groups
