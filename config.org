@@ -303,13 +303,7 @@ need to integrate in doom eval/REPL
 (after! org
   (setq org-startup-folded 'content
         org-startup-indented 'indent
-        org-agenda-files
-        (list ;; org-dir
-           (concat org-dir "Agenda"))
-        ;; (concat org-dir "todo.org")
-        ;; (concat org-dir "inbox.org")
-        ;; (concat org-dir "gcal.org")
-        ;; (concat org-dir "habits.org"))
+        org-agenda-files (list(concat org-dir "Agenda"))
         org-log-done 'time
         org-log-into-drawer t
         org-ellipsis " ▾"
@@ -317,10 +311,9 @@ need to integrate in doom eval/REPL
         org-use-property-inheritance t
         org-deadline-warning-days 7
         org-hide-emphasis-markers t
-        org-id-link-to-org-use-id t
-        org-roam-prefer-id-links t))
+        org-id-link-to-org-use-id t))
 #+end_src
-** ids
+** org ids
 #+begin_src emacs-lisp
 (defun my/org-add-ids-to-headlines-in-file ()
   "Add ID properties to all headlines in the current file which
@@ -743,7 +736,7 @@ do not already have one."
          (file ,(concat org-agenda-dir "inbox.org"))
          "* TODO %^{Title|ToOrder}\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n%i\n%?" :empty-lines 1)
         ("a" "Appointment" entry
-         (file+headline ,(concat org-agenda-dir "gcal.org") "Appointment")
+         (file+headline ,(concat org-agenda-dir "appointments.org") "Appointment")
          "* %?\n%^T\n:PROPERTIES:\n:CREATED: %U\n:END:\n" :empty-lines 1)
         ("d" "Deadline" entry
          (file ,(concat org-agenda-dir "inbox.org"))
@@ -805,10 +798,10 @@ do not already have one."
 ;; (require 'org-protocol)
 #+end_src
 ** org-roam
-:PROPERTIES:
-:ID:       7465a2b5-f60d-48d2-8bc5-b13e531d0108
-:END:
 #+begin_src emacs-lisp
+(after! org
+  (setq +org-roam-open-buffer-on-find-file nil
+        org-roam-prefer-id-links t))
 (setq org-roam-capture-templates
       '(("d" "default" plain #'org-roam-capture--get-point
          "%i\n%?"
@@ -821,14 +814,14 @@ do not already have one."
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Reference %^{Type|Article|Lecture|Video|Book} %^{Status|Read|Reading|WantToRead|Completed}\n\n"
          :unnarrowed t)
         ("p" "project" plain #'org-roam-capture--get-point
-         "* Metadata\n- keys :: \n\n* PROJECT Tasks\n** TODO %?"
+         "* Metadata\n- keys :: \n- goals :: \n\n* PROJECT Tasks\n** TODO %?"
          :file-name "Agenda/${slug}"
          :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Project %^{Status|Archive|Active}\n#+FILETAGS: Project %^{Status|Archive|Active}\n\n"
          :unnarrowed t)
         ("g" "goal" plain #'org-roam-capture--get-point
-         "* Metadata\n- Associated Projects/Habits :: %? \n- Area :: [[id:f903c964-ffe7-4c56-bea8-0d886ec89c00][My Personal Goals]],\n\n* TODO Next Assessment\nSCHEDULED: %^T\n\n* TODO Completion\nDEADLINE: %^T\n\n* PROJECT Sub-Goals\n- [ ] \n\n* Assessment Log\n[[id:9978d6be-9bb0-4cb1-8a6c-38833b1ead11][Templates for assessments]]\n"
+         "* Metadata\n- area :: [[id:f903c964-ffe7-4c56-bea8-0d886ec89c00][My Personal Goals]],\n- goals :: %?\n\n* PROJECT Sub-Goals\n- [ ] \n\n* TODO Next Assessment\nSCHEDULED: %^T\n\n* TODO Completion\nDEADLINE: %^T\n\n* Assessment Log\n[[id:9978d6be-9bb0-4cb1-8a6c-38833b1ead11][Templates for assessments]]\n"
          :file-name "Agenda/${slug}"
-         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Goal %^{Status|Short-Term|Long-Term}\n#+FILETAGS: Goal %^{Status|Short-Term|Long-Term}\n\n"
+         :head "#+TITLE: ${title}\n#+CREATED: %U\n#+ROAM_TAGS: Goal %^{Status|Short-Term|Long-Term|Future}\n#+FILETAGS: Goal %^{Status|Short-Term|Long-Term|Future}\n\n"
          :unnarrowed t)))
 #+end_src
 
