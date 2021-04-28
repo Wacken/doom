@@ -466,10 +466,10 @@ do not already have one."
                              :and (:todo "NEXT" :tag "@work")
                              :order 30)
                             (:name "Hold"
-                             :and (:todo "HOLD" :tag "Project" :tag "Active")
+                             :and (:todo "HOLD" :tag "Project" :tag "Active" :not (:tag "@work"))
                              :order 45)
                             (:name "Waiting"
-                             :and (:todo "WAITING" :tag "Project" :tag "Active")
+                             :and (:todo "WAITING" :tag "Project" :tag "Active" :not (:tag "@work"))
                              :order 50)
                             (:discard (:anything))))))))
           ("P" "Projects"
@@ -486,14 +486,17 @@ do not already have one."
                              :and (:todo "PROJECT" :tag "Project" :tag "Active")
                              :order 5)
                             (:name "Projects Archived"
-                             :and (:todo "PROJECT" :tag "Project" :tag "Archive")
+                             :and (:todo "PROJECT" :tag "Project" :tag "Archive" :not (:tag "Completed"))
                              :order 10)
-                            (:name "Projects To Cleanup"
-                             :todo "PROJECT"
+                            (:name "Projects Completed"
+                             :and (:todo "PROJECT" :tag "Project" :tag "Archive" :tag "Completed")
                              :order 15)
-                            (:name "Rest To Cleanup"
-                             :children t
-                             :order 20)
+                            ;; (:name "Projects To Cleanup"
+                            ;;  :todo "PROJECT"
+                            ;;  :order 15)
+                            ;; (:name "Rest To Cleanup"
+                            ;;  :children t
+                            ;;  :order 20)
                             (:discard (:anything))))))))
           ("L" "Last week"
            ((agenda "" ((org-agenda-span 7)
