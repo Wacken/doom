@@ -264,14 +264,14 @@ need to integrate in doom eval/REPL
       (switch-to-buffer-other-window b))))
 (set-repl-handler! 'csharp-mode #'my-csharp-repl)
 #+end_src
-** clojure
+** COMMENT clojure
 *** hydra
 #+begin_src emacs-lisp
 (use-package! cider-hydra
   :ghook 'clojure-mode-hook)
 #+end_src
 
-** python
+** COMMENT python
 #+begin_src emacs-lisp
 ;; (use-package jedi
 ;;   :init
@@ -279,7 +279,7 @@ need to integrate in doom eval/REPL
 ;;   (add-hook 'python-mode-hook 'jedi:ac-setup))
 #+end_src
 
-** c++
+** COMMENT c++
 :PROPERTIES:
 :ID:       a4f20c2f-d6a8-40ee-9e38-2e5ee05d0c93
 :END:
@@ -988,7 +988,7 @@ do not already have one."
 
 #+end_src
 
-** spotify
+** COMMENT spotify
 *** setup
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.config/doom/local-packages/spotify.el/")
