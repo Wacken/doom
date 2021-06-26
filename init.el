@@ -70,7 +70,7 @@
        eshell         ; the elisp shell that works everywhere
        ;;shell             ; simple shell repl for emacs
        ;;term              ; basic terminal emulator for emacs
-       ;;vterm             ; the best terminal emulation in emacs
+       vterm             ; the best terminal emulation in emacs
 
        :checkers
        (syntax +childframe)           ; tasing you for every semicolon you forget
@@ -83,7 +83,7 @@
        ;; (debugger +lsp)          ; fixme stepping through code, to help you add bugs
        ;;direnv
        ;;docker
-       ;; editorconfig      ; let someone else argue about tabs vs spaces
+       editorconfig      ; let someone else argue about tabs vs spaces
        ;; ein               ; tame jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
@@ -91,7 +91,7 @@
        (lsp +peek)
        magit                    ; a git porcelain for emacs
        ;; make              ; run make tasks from emacs
-       ;;pass              ; password manager for nerds
+       pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
@@ -128,7 +128,7 @@
        ;;idris             ;
        json              ; at least it ain't xml
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster matlab
        ;;kotlin            ; a better, slicker java(script)
        latex             ; writing papers in emacs has never been so fun
@@ -144,11 +144,11 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       python            ; beautiful is better than ugly
+       (python +lsp +pyright)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a dsl for dsls
        ;;raku              ; the artist formerly known as perl6
-       ;;rest              ; emacs as a rest client
+       rest              ; emacs as a rest client
        ;;rst               ; rest in peace
        ;;(ruby +rails)     ; 1.step {|i| p "ruby is #{i.even? ? 'love' : 'life'}"}
        ;;rust              ; fe2o3.unwrap().unwrap().unwrap().unwrap()
