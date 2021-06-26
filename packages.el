@@ -55,6 +55,7 @@
 ;; (package! cider-hydra)
 (package! dired-single)
 (package! dired-open)
+(package! dired-narrow)
 (package! org-super-agenda)
 (package! org-roam-server)
 (package! org-pandoc-import
@@ -64,11 +65,24 @@
 (package! company-org-roam)
 (package! org-ql)
 
-(package! selectric-mode)
-(package! elcord)
-(package! nroam
-  :recipe (:host github
-           :branch "master"
-           :repo "NicolasPetton/nroam"))
+;; make keyboard sound like old typewriter
+;; (package! selectric-mode)
+;; discord integration
+;; (package! elcord)
 
-(package! icicles)
+;; move roam to bottom of org file
+;; (package! nroam
+;;   :recipe (:host github
+;;            :branch "master"
+;;            :repo "NicolasPetton/nroam"))
+
+;; Regex visualization and more
+;; (package! icicles)
+
+;; (package! bug-hunter)
+
+(package! bats-mode)
+
+;; spotify
+;; (package! simple-httpd)
+;; (package! oauth2)
