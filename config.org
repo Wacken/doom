@@ -960,7 +960,7 @@ do not already have one."
 ** font
 #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "Fira Code" :size 16)
-      doom-variable-pitch-font (font-spec :family "FreeSans")
+      doom-variable-pitch-font (font-spec :family "DejaVu Serif")
       doom-big-font (font-spec :family "Fira Code" :size 25))
 (setq +ligatures-in-modes '(not special-mode comint-mode eshell-mode term-mode vterm-mode org-agenda-mode))
 #+end_src
