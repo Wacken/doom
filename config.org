@@ -295,6 +295,15 @@ need to integrate in doom eval/REPL
 
 #+end_src
 
+** bash
+#+begin_src emacs-lisp
+;; (add-to-list 'auto-mode-alist '("\\.bats\\'" . shell-script-mode))
+#+end_src
+
+*** bats mode
+#+begin_src emacs-lisp
+
+#+end_src
 * org
 ** setup
 #+begin_src emacs-lisp
@@ -905,6 +914,13 @@ do not already have one."
       :nv "g r" 'magit-refresh)
 #+end_src
 
+** COMMENT vterm
+#+begin_src emacs-lisp
+(use-package! vterm
+  :config
+  (add-hook 'vterm-mode-hook (lambda () (global-company-mode -1)))
+  (add-hook 'vterm-mode-hook (lambda () (company-mode -1))))
+#+end_src
 * UI
 ** themes
 #+begin_src emacs-lisp
