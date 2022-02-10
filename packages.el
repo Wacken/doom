@@ -64,6 +64,10 @@
            :files ("*.el" "filters" "preprocessors")))
 (package! company-org-roam)
 (package! org-ql)
+(package! org :pin "fbff082f733858e547a07ad452b6e3ed61a30099")
+;; (unpin! org)
+;; (unpin! org-roam)
+
 
 ;; make keyboard sound like old typewriter
 ;; (package! selectric-mode)

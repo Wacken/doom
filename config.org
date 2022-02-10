@@ -500,7 +500,7 @@ do not already have one."
                              :and (:todo "PROJECT" :not (:children ("NEXT" "CURRENT" "WAITING" "HOLD")) :tag "Project" :tag "Active")
                              :order 3)
                             (:name "Projects Waiting"
-                             :and (:todo "PROJECT" :children ("WAITING" "HOLD") :not (:children "NEXT") :tag "Project" :tag "Active")
+                             :and (:todo "PROJECT" :children ("WAITING" "HOLD") :not (:children ( "NEXT" "CURRENT" )) :tag "Project" :tag "Active")
                              :order 4)
                             (:discard (:anything))))))
             (alltodo "" ((org-super-agenda-groups
@@ -508,7 +508,7 @@ do not already have one."
                              :and (:todo "PROJECT" :tag "Project" :tag "Active")
                              :order 5)
                             (:name "Projects Archived"
-                             :and (:todo "PROJECT" :tag "Project" :tag "Archive" :not (:tag "Completed"))
+                             :and (:todo "PROJECT" :tag "Project" :tag "Archive" :not (:tag ("Completed" "Cancelled")))
                              :order 10)
                             (:name "Projects Completed"
                              :and (:todo "PROJECT" :tag "Project" :tag "Archive" :tag "Completed")
@@ -853,7 +853,7 @@ do not already have one."
          :unnarrowed t)))
 #+end_src
 
-*** org-roam server
+*** COMMENT org-roam server
 #+begin_src emacs-lisp
 (use-package! org-roam-server
   :config
