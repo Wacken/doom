@@ -413,14 +413,14 @@ do not already have one."
                              :transformer (--> it
                                             (first (split-string it ":"))
                                             (propertize it 'face '(:foreground "Cyan"))))
-                            (:name "Long-term Goals"
-                             :and (:todo "PROJECT" :tag "Goal" :tag "Long-term" :tag "Active")
+                            (:name "Long_term Goals"
+                             :and (:todo "PROJECT" :tag "Goal" :tag "Long_term" :tag "Active")
                              :order 3
                              :transformer (--> it
                                             (first (split-string it ":"))
                                             (propertize it 'face '(:foreground "Green"))))
-                            (:name "Short-term Goals"
-                             :and (:todo "PROJECT" :tag "Goal" :tag "Short-term" :tag "Active")
+                            (:name "Short_term Goals"
+                             :and (:todo "PROJECT" :tag "Goal" :tag "Short_term" :tag "Active")
                              :order 5
                              :transformer (--> it
                                             (first (split-string it ":"))
@@ -449,14 +449,14 @@ do not already have one."
                              :transformer (--> it
                                             (first (split-string it ":"))
                                             (propertize it 'face '(:foreground "Cyan"))))
-                            (:name "Long-term Goals"
-                             :and (:todo "PROJECT" :tag "Goal" :tag "Long-term" :tag "Active")
+                            (:name "Long_term Goals"
+                             :and (:todo "PROJECT" :tag "Goal" :tag "Long_term" :tag "Active")
                              :order 4
                              :transformer (--> it
                                             (first (split-string it ":"))
                                             (propertize it 'face '(:foreground "Green"))))
-                            (:name "Short-term Goals"
-                             :and (:todo "PROJECT" :tag "Goal" :tag "Short-term" :tag "Active")
+                            (:name "Short_term Goals"
+                             :and (:todo "PROJECT" :tag "Goal" :tag "Short_term" :tag "Active")
                              :order 5
                              :transformer (--> it
                                             (first (split-string it ":"))
