@@ -139,6 +139,7 @@
     "h" 'dired-up-directory
     "l" 'dired-find-file))
 
+
 (use-package! dired-open
   :config
   (setq dired-open-extensions '(("png" . "sxiv")("jpg" . "sxiv")("jpeg" . "sxiv")
@@ -752,9 +753,6 @@ do not already have one."
 #+end_src
 
 ** capture
-:PROPERTIES:
-:ID:       a9feab6d-0b64-45d1-a084-7959a8e3beb6
-:END:
 #+begin_src emacs-lisp
 (setq org-capture-templates
       `(("t" "Todo [inbox]" entry

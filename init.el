@@ -27,7 +27,7 @@
        doom                             ; what makes doom look the way it does
        doom-dashboard                   ; a nifty splash screen for emacs
        ;; doom-quit                ; doom quit-message prompts when you quit emacs
-       fill-column            ; a `fill-column' indicator
+       ;; emoji                 ; display and insert emojis
        hl-todo                ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        ;; indent-guides            ; highlighted indent columns
