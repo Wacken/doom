@@ -58,11 +58,12 @@
 (package! dired-narrow)
 (package! org-super-agenda)
 (package! org-roam-server)
+(package! company-org-roam)
+(package! org-roam-ui)
 (package! org-pandoc-import
   :recipe (:host github
            :repo "tecosaur/org-pandoc-import"
            :files ("*.el" "filters" "preprocessors")))
-(package! company-org-roam)
 (package! org-ql)
 
 ;; make keyboard sound like old typewriter
