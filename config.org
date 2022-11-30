@@ -501,19 +501,44 @@ do not already have one."
                             ;;  :order 4)
                             (:name "Current"
                              :and (:todo "CURRENT" :tag "Active")
-                             :order 20)
+                             :order 20
+                             :transformer (--> it
+                                            (split-string it "-")
+                                            (if (second it)
+                                                (concat "  " (second it))
+                                              (first it))))
                             (:name "Next"
                              :and (:todo "NEXT" :tag "Active")
-                             :order 25)
+                             :order 25
+                             :transformer (--> it
+                                            (split-string it "-")
+                                            (if (second it)
+                                                (concat "  " (second it))
+                                              (first it))))
                             (:name "Work"
                              :and (:todo "NEXT" :tag "@work")
-                             :order 30)
+                             :order 30
+                             :transformer (--> it
+                                            (split-string it "-")
+                                            (if (second it)
+                                                (concat "  " (second it))
+                                              (first it))))
                             (:name "Hold"
                              :and (:todo "HOLD" :tag "Project" :tag "Active" :not (:tag "@work"))
-                             :order 45)
+                             :order 45
+                             :transformer (--> it
+                                            (split-string it "-")
+                                            (if (second it)
+                                                (concat "  " (second it))
+                                              (first it))))
                             (:name "Waiting"
                              :and (:todo "WAITING" :tag "Project" :tag "Active" :not (:tag "@work"))
-                             :order 50)
+                             :order 50
+                             :transformer (--> it
+                                            (split-string it "-")
+                                            (if (second it)
+                                                (concat "  " (second it))
+                                              (first it))))
                             (:discard (:anything))))))))
           ("P" "Projects"
            ((alltodo "" ((org-super-agenda-groups
