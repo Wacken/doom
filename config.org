@@ -316,6 +316,7 @@ need to integrate in doom eval/REPL
 (setq org-directory org-dir)
 (setq org-roam-directory org-directory)
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
 (after! org
   (setq org-startup-folded 'content
         org-startup-indented 'indent
