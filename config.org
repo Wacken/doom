@@ -35,6 +35,9 @@
 
 * keybindings
 ** general
+#+begin_src  emacs-lisp
+(global-set-key [remap dabbrev-expand] 'hippie-expand)
+#+end_src
 *** doom
 #+begin_src emacs-lisp
 (map!
