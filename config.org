@@ -308,6 +308,16 @@ need to integrate in doom eval/REPL
 #+begin_src emacs-lisp
 
 #+end_src
+** latex
+#+begin_src emacs-lisp
+(add-hook 'latex-mode-hook (lambda () latex-preview-pane-mode))
+;; (setq TeX-engine 'luatex)
+;; (setq org-latex-compilers "lualatex")
+(setq pdf-latex-command "lualatex")
+;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
+(setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
+#+end_src
+
 * org
 ** setup
 #+begin_src emacs-lisp
