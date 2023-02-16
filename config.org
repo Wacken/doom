@@ -30,6 +30,7 @@
 ;; they are implemented.
 
 (setq byte-compile-warnings '(cl-functions)) ; ignore Package cl is depcrecated warning
+(set-time-zone-rule "Asia/Tokyo")
 ;; (setq comp-deferred-compilation t)
 #+end_src
 
@@ -333,6 +334,7 @@ need to integrate in doom eval/REPL
         org-agenda-files (list(concat org-dir "Agenda"))
         org-log-done 'time
         org-log-into-drawer t
+        org-extend-today-until 4
         org-ellipsis " ▾"
         org-agenda-start-with-log-mode t
         org-use-property-inheritance t
