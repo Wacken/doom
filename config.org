@@ -1014,6 +1014,69 @@ do not already have one."
   (add-hook 'vterm-mode-hook (lambda () (global-company-mode -1)))
   (add-hook 'vterm-mode-hook (lambda () (company-mode -1))))
 #+end_src
+** mu4e
+#+begin_src emacs-lisp
+(after! mu4e
+  (setq! mu4e-maildir (expand-file-name "~/.local/share/mail/outlook") ; the rest of the mu4e folders are RELATIVE to this one
+         mu4e-get-mail-command "mbsync -c ~/.config/mbsyncrc main"
+         mu4e-index-update-in-background t
+         mu4e-compose-signature-auto-include t
+         mu4e-use-fancy-chars t
+         mu4e-view-show-addresses t
+         mu4e-view-show-images t
+         mu4e-compose-format-flowed t
+         ;mu4e-compose-in-new-frame t
+         mu4e-change-filenames-when-moving t ;; http://pragmaticemacs.com/emacs/fixing-duplicate-uid-errors-when-using-mbsync-and-mu4e/
+         mu4e-headers-date-format "%d.%m.%y"
+         mu4e-maildir-shortcuts
+         '( ("/Inbox" . ?i)
+            ("/Archives/2023" . ?a)
+            ("/TODO" . ?t)
+            ("/Work" . ?w)
+            ("/Deleted" . ?d)
+            ("/Sent" . ?s))
+
+         ;; Message Formatting and sending
+         message-send-mail-function 'smtpmail-send-it
+         ;; message-signature-file "~/Documents/dotfiles/Emacs/.doom.d/.mailsignature"
+         message-citation-line-format "On %a %d %b %Y at %R, %f wrote:\n"
+         message-citation-line-function 'message-insert-formatted-citation-line
+         message-kill-buffer-on-exit t
+         ;; mu4e-compose-signature  "\nWith friendly regards,\nSebastian Walchshaeusl"
+         ;; message-signature       "\nWith friendly regards,\nSebastian Walchshaeusl"
+
+         ;; mu4e-contexts
+         ;; (list
+         ;;  (make-mu4e-context
+         ;;   :name "main"))
+
+
+         ;; Org mu4e
+         org-mu4e-convert-to-html t))
+
+
+(set-email-account! "main"
+                    '((user-mail-address      . "sebastianwalchi@outlook.de")
+                      (user-full-name         . "Sebastian Walchshaeusl")
+                      (smtpmail-smtp-user     . "sebastianwalchi@outlook.de")
+                      (smtpmail-smtp-server   . "smtp.office365.com")
+                      (smtpmail-smtp-service  . 587)
+                      (smtpmail-stream-type   . starttls)
+                      (smtpmail-debug-info    . t)
+                      (mu4e-drafts-folder     . "/Drafts")
+                      (mu4e-refile-folder     . "/Archives")
+                      (mu4e-sent-folder       . "/Sent")
+                      (mu4e-trash-folder      . "/Deleted")
+                      (mu4e-update-interval   . 300))
+                      ;(mu4e-sent-messages-behavior . 'delete)
+
+                    nil)
+#+end_src
+** chatgpt
+#+begin_src emacs-lisp
+(setenv "OPENAI_API_KEY" "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")
+(load! "local-packages/chatgpt")
+#+end_src
 * UI
 ** themes
 #+begin_src emacs-lisp
