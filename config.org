@@ -1075,7 +1075,6 @@ do not already have one."
 #+end_src
 ** chatgpt
 #+begin_src emacs-lisp
-(setenv "OPENAI_API_KEY" "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")
 (load! "local-packages/chatgpt")
 #+end_src
 * UI
