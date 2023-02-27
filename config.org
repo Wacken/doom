@@ -1017,7 +1017,11 @@ do not already have one."
 #+end_src
 ** mu4e
 #+begin_src emacs-lisp
+(setq! browse-url-browser-function 'browse-url-generic
+       browse-url-generic-program "brave")
 (after! mu4e
+  (add-to-list 'mu4e-headers-actions
+   '("ViewInBrowser" . mu4e-action-view-in-browser) t)
   (setq! mu4e-maildir (expand-file-name "~/.local/share/mail/outlook") ; the rest of the mu4e folders are RELATIVE to this one
          mu4e-get-mail-command "mbsync -c ~/.config/mbsyncrc main"
          mu4e-index-update-in-background t
@@ -1065,13 +1069,14 @@ do not already have one."
                       (smtpmail-stream-type   . starttls)
                       (smtpmail-debug-info    . t)
                       (mu4e-drafts-folder     . "/Drafts")
-                      (mu4e-refile-folder     . "/Archives")
+                      (mu4e-refile-folder     . "/Archives/2023")
                       (mu4e-sent-folder       . "/Sent")
                       (mu4e-trash-folder      . "/Deleted")
                       (mu4e-update-interval   . 300))
                       ;(mu4e-sent-messages-behavior . 'delete)
 
                     nil)
+
 #+end_src
 ** chatgpt
 #+begin_src emacs-lisp
