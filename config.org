@@ -997,6 +997,18 @@ do not already have one."
                   (outline-flag-region start (point-at-eol) t)
                   (user-error msg))))))))))
 #+end_src
+** org-calendar
+#+begin_src emacs-lisp
+(setq org-gcal-client-id "450681703770-iteaad3onrsjkjad401bkqg9bu0ennrj.apps.googleusercontent.com"
+      org-gcal-client-secret "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"
+      ;; oauth2-auto-google-client-id "450681703770-iteaad3onrsjkjad401bkqg9bu0ennrj.apps.googleusercontent.com"
+      ;; oauth2-auto-google-client-secret "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"
+      org-gcal-fetch-file-alist '(("sebastianwalchi@gmail.com" .  "~/Files/Org/Agenda/appointments.org")))
+                                  ;; ("another-mail@gmail.com" .  "~/task.org")
+
+(setq plstore-cache-passphrase-for-symmetric-encryption t)
+(require 'org-gcal)
+#+end_src
 
 * tools
 ** tramp
