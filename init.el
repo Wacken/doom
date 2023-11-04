@@ -80,7 +80,7 @@
        :tools
        ;;ansible
        ;; biblio
-       ;; (debugger +lsp)          ; fixme stepping through code, to help you add bugs
+       (debugger +lsp)          ; fixme stepping through code, to help you add bugs
        ;;direnv
        ;;docker
        editorconfig      ; let someone else argue about tabs vs spaces
@@ -98,6 +98,7 @@
        ;; taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an api for interacting with tmux
+       tree-sitter
        ;;upload            ; map local to remote projects via ssh/ftp
 
        :os
@@ -105,33 +106,34 @@
 
        :lang
        ;;agda              ; types of types of types of types...
-       ;;cc                ; c/c++/obj-c madness
-       ;; (clojure)           ; java with a lisp
+       (cc +lsp +tree-sitter)                ; c/c++/obj-c madness
+       ;; (clojure +lsp +tree-sitter)           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       (csharp +unity +lsp +dotnet)            ; unity, .net, and mono shenanigans
+       (csharp +unity +lsp +dotnet +tree-sitter)            ; unity, .net, and mono shenanigans
        data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of tea?
        emacs-lisp                       ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
-       ess               ; emacs speaks statistics
+       (ess +tree-sitter)               ; emacs speaks statistics
        ;;faust             ; dsp, but you get to keep your soul
        ;;fsharp            ; ml stands for microsoft's language
        ;;fstar             ; (dependent) types and (monadic) effects and z3
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
-       (haskell +dante)  ; a language that's lazier than i am
+       (haskell +lsp +tree-sitter)  ; a language that's lazier than i am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
-       json              ; at least it ain't xml
+       (json +lsp +tree-sitter)              ; at least it ain't xml
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp +tree-sitter)
+                           ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster matlab
        ;;kotlin            ; a better, slicker java(script)
-       latex             ; writing papers in emacs has never been so fun
+       (latex +lsp)             ; writing papers in emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in emacs
@@ -140,11 +142,12 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; i hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +roam2 +noter +pretty +pandoc);; +dragndrop +pandoc +pretty +noter +roam2 +jupyter)              ;organize your plain life in plain text
+       (org +roam2 +noter +pretty +pandoc);; +dragndrop +jupyter)              ;organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python +lsp +pyright)            ; beautiful is better than ugly
+       ;; (python +lsp +pyright)            ; beautiful is better than ugly
+       (python +lsp +tree-sitter)
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a dsl for dsls
        ;;raku              ; the artist formerly known as perl6
@@ -154,13 +157,13 @@
        ;;rust              ; fe2o3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
-       sh                ; she sells {ba,z,fi}sh shells on the c xor
+       (sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the c xor
        ;;sml
        ;;solidity          ; do you need a blockchain? no.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; earth and moon in alignment for performance.
-       (web +html +css)               ; the tubes
-       yaml              ; json, but readable
+       (web +lsp +tree-sitter)               ; the tubes
+       (yaml +tree-sitter)              ; json, but readable
 
        :email
        (mu4e +gmail +org)
