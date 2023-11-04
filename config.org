@@ -275,30 +275,36 @@ need to integrate in doom eval/REPL
   :ghook 'clojure-mode-hook)
 #+end_src
 
-** COMMENT python
+** python
 #+begin_src emacs-lisp
-;; (use-package jedi
-;;   :init
-;;   (add-hook 'python-mode-hook 'jedi:setup)
-;;   (add-hook 'python-mode-hook 'jedi:ac-setup))
+(after! dap-mode
+  (setq dap-python-debugger 'debugpy))
 #+end_src
 
-** COMMENT c++
-:PROPERTIES:
-:ID:       a4f20c2f-d6a8-40ee-9e38-2e5ee05d0c93
-:END:
+** cc
+*** lsp
 #+begin_src emacs-lisp
-;; (use-package ggtags
-;;   :ensure t
-;;   :config
-;;   (add-hook 'c-mode-common-hook
-;;             (lambda ()
-;;               (when
-;;                   (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-;;                 (ggtags-mode 1)))))
-
+(after! ccls
+  (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
+  (set-lsp-priority! 'ccls 2)) ; optional as ccls is the default in Doom
 #+end_src
 
+*** cmake
+#+begin_src emacs-lisp
+(use-package! cmake-ide
+  :init
+  (cmake-ide-setup))
+
+;; Associate CMakeLists.txt files with cmake-mode
+(add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
+
+;; Define a function to enable cmake-mode for CMakeLists.txt files
+;; (defun my-enable-cmake-mode ()
+;;   (cmake-mode))
+
+;; Add a hook to invoke my-enable-cmake-mode when opening CMakeLists.txt
+;; (add-hook! 'cmake-mode-hook 'my-enable-cmake-mode)
+#+end_src
 ** bash
 #+begin_src emacs-lisp
 ;; (add-to-list 'auto-mode-alist '("\\.bats\\'" . shell-script-mode))
