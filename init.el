@@ -35,7 +35,7 @@
        hl-todo                ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        hydra
        ;; indent-guides            ; highlighted indent columns
-       (ligatures +fira +extra) ; ligatures and symbols to make your code pretty again
+       (ligatures +extra) ; ligatures and symbols to make your code pretty again
        ;; minimap                  ; show a map of the code on the side
        modeline                 ; snazzy, atom-inspired modeline, plus api
        ;; nav-flash                ; blink cursor line after big motions
@@ -55,7 +55,8 @@
        (evil +everywhere)   ; come to the dark side, we have cookies
        file-templates       ; auto-snippets for empty files
        fold                 ; (nigh) universal code folding
-       (format)     ; automated prettiness
+       (format +onsave)     ; automated prettiness
+       ;;god               ; run Emacs commands without modifier keys
        ;; lispy                ; vim for lisp, for people who don't like vim
        multiple-cursors     ; editing in many places at once
        parinfer          ; turn lisp into python, sort of
@@ -78,28 +79,27 @@
 
        :checkers
        (syntax +childframe)           ; tasing you for every semicolon you forget
-       ;; (spell +anspell +flyspell)             ; tasing you for misspelling mispelling fs +hunspell +enchant +everywhere
-       ;; grammar           ; tasing grammar mistake every you make
+       (spell +anspell +flyspell)             ; tasing you for misspelling mispelling fs +hunspell +enchant +everywhere
+       grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
        ;; biblio
+       ;;collab            ; buffers with friends
        (debugger +lsp)          ; fixme stepping through code, to help you add bugs
        ;;direnv
-       ;;docker
+       ;; (docker +lsp)
        editorconfig      ; let someone else argue about tabs vs spaces
-       ;; ein               ; tame jupyter notebooks with emacs
+       ein               ; tame jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
-       ;;gist              ; interacting with github gists
        (lookup +dictionary +offline)              ; navigate your code and its documentation
        (lsp +peek)
        magit                    ; a git porcelain for emacs
        ;; make              ; run make tasks from emacs
-       pass              ; password manager for nerds
+       (pass +auth)              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
-       ;; taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an api for interacting with tmux
        tree-sitter
@@ -110,39 +110,43 @@
 
        :lang
        ;;agda              ; types of types of types of types...
+       ;;beancount         ; mind the GAAP
        (cc +lsp +tree-sitter)                ; c/c++/obj-c madness
-       ;; (clojure +lsp +tree-sitter)           ; java with a lisp
+       (clojure +lsp +tree-sitter)           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
        (csharp +unity +lsp +dotnet +tree-sitter)            ; unity, .net, and mono shenanigans
        data              ; config/data formats
        ;;(dart +flutter)   ; paint ui and not much else
+       ;;dhall
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of tea?
        emacs-lisp                       ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
        (ess +tree-sitter)               ; emacs speaks statistics
+       ;;factor
        ;;faust             ; dsp, but you get to keep your soul
+       ;;fortran           ; in FORTRAN, GOD is REAL (unless declared INTEGER)
        ;;fsharp            ; ml stands for microsoft's language
        ;;fstar             ; (dependent) types and (monadic) effects and z3
        ;;gdscript          ; the language you waited for
        ;;(go +lsp)         ; the hipster dialect
+       ;;(graphql +lsp)    ; Give queries a REST
        (haskell +lsp +tree-sitter)  ; a language that's lazier than i am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        (json +lsp +tree-sitter)              ; at least it ain't xml
-       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       ;;(java +lsp) ; the poster child for carpal tunnel syndrome
        (javascript +lsp +tree-sitter)
-                           ; all(hope(abandon(ye(who(enter(here))))))
+                                        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster matlab
        ;;kotlin            ; a better, slicker java(script)
        (latex +lsp)             ; writing papers in emacs has never been so fun
        ;;lean
-       ;;factor
        ;;ledger            ; an accounting system in emacs
        ;;lua               ; one-based indices? one-based indices
-       ;; markdown          ; writing docs for people to ignore
+       markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; i hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
@@ -150,15 +154,14 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       ;; (python +lsp +pyright)            ; beautiful is better than ugly
-       (python +lsp +tree-sitter)
+       (python +pyright +lsp +tree-sitter)           ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a dsl for dsls
        ;;raku              ; the artist formerly known as perl6
        rest              ; emacs as a rest client
        ;;rst               ; rest in peace
        ;;(ruby +rails)     ; 1.step {|i| p "ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;rust              ; fe2o3.unwrap().unwrap().unwrap().unwrap()
+       (rust +lsp +tree-sitter)              ; fe2o3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
        (sh +lsp +tree-sitter)                ; she sells {ba,z,fi}sh shells on the c xor
@@ -166,8 +169,10 @@
        ;;solidity          ; do you need a blockchain? no.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; earth and moon in alignment for performance.
-       (web +lsp +tree-sitter)               ; the tubes
+       (web +lsp +tree-sitter +html +css)               ; the tubes
        (yaml +tree-sitter)              ; json, but readable
+       ;;zig               ; C, but simpler
+
 
        :email
        (mu4e +gmail +org)
