@@ -52,7 +52,6 @@
 (package! company-statistics)
 (package! yasnippet-snippets)
 (package! elfeed-goodies)
-;; (package! cider-hydra)
 (package! dired-single)
 (package! dired-open)
 (package! dired-narrow)
@@ -65,6 +64,12 @@
            :repo "tecosaur/org-pandoc-import"
            :files ("*.el" "filters" "preprocessors")))
 (package! org-ql)
+
+(package! cmake-ide)
+(package! srefactor)
+
+;; (package! mu4e)
+;; (package! cider-hydra)
 
 ;; make keyboard sound like old typewriter
 ;; (package! selectric-mode)
