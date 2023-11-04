@@ -47,7 +47,7 @@
 #+begin_src emacs-lisp
 (map!
  :leader
- :desc "M-x" "SPC" 'counsel-M-x
+ :desc "M-x" "SPC" 'execute-extended-command
 
  "wa"              'ace-window
  "ws"              'ace-swap-window
@@ -80,7 +80,7 @@
  #+end_src
 
 * navigation
-** counsel
+** COMMENT counsel
  #+begin_src emacs-lisp
 (use-package! counsel
   :init
