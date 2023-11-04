@@ -881,19 +881,19 @@ do not already have one."
 (setq org-roam-capture-templates
       '(("d" "default" plain
          "%i\n%?"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n#+CREATED: %U\n")
+         :if-new (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+TITLE: ${title}\n#+CREATED: %U\n")
          :unnarrowed t)
         ("r" "reference" plain
          "* Metadata\n- topic :: \n- source :: %x\n- author :: \n\n%?"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n#+CREATED: %U\n#+FILETAGS: :Reference:%^{Type|Article|Lecture|Video|Book}:%^{Status|Read|Reading|WantToRead|Completed}:\n\n")
+         :if-new (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+TITLE: ${title}\n#+CREATED: %U\n#+FILETAGS: :Reference:%^{Type|Article|Lecture|Video|Book}:%^{Status|Read|Reading|WantToRead|Completed}:\n\n")
          :unnarrowed t)
         ("p" "project" plain
          "* Metadata\n- keys :: \n- goals :: \n\n* PROJECT Tasks\n** TODO %?"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n#+CREATED: %U\n#+FILETAGS: :Project:%^{Status|Archive|Active}:\n\n")
+         :if-new (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+TITLE: ${title}\n#+CREATED: %U\n#+FILETAGS: :Project:%^{Status|Archive|Active}:\n\n")
          :unnarrowed t)
         ("g" "goal" plain
          "* Metadata\n- area :: [[id:f903c964-ffe7-4c56-bea8-0d886ec89c00][My Personal Goals]],\n- goals :: %?\n\n* PROJECT Sub-Goals\n- [ ] \n\n* TODO Next Assessment\nSCHEDULED: %^t\n\n* TODO Completion\nDEADLINE: %^t\n\n* Assessment Log\n[[id:9978d6be-9bb0-4cb1-8a6c-38833b1ead11][Templates for assessments]]\n"
-         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+TITLE: ${title}\n#+CREATED: %U\n#+FILETAGS: :Goal:%^{Status|Short_Term|Long_Term|Future}:%^{Status|Archive|Active}:\n\n")
+         :if-new (file+head "${slug}-%<%Y%m%d%H%M%S>.org" "#+TITLE: ${title}\n#+CREATED: %U\n#+FILETAGS: :Goal:%^{Status|Short_Term|Long_Term|Future}:%^{Status|Archive|Active}:\n\n")
          :unnarrowed t)))
 #+end_src
 
