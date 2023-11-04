@@ -1,41 +1,16 @@
 * Setup
 #+begin_src emacs-lisp
 ;;; config.el -*- lexical-binding: t; -*-
-;; (require 'exwm)
-;; (require 'exwm-config)
-;; (exwm-config-default)
-;; Plac your private configuration here! Remember, you do not need to run 'doom
-;; sync' after modifying this file!
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Wacken Desktop Arch"
       user-mail-address "sebastianwalchi@gmail.com")
 
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
 (setq byte-compile-warnings '(cl-functions)) ; ignore Package cl is depcrecated warning
 (set-time-zone-rule "Asia/Tokyo")
-;; (setq cursor-type 'hbar)
-;; (setq cursor-in-non-selected-windows t)
-;; (setq cursor-continuation '("red" bar))
-;; (setq cursor-intangible t)
-;; (setq comp-deferred-compilation t)
+
+
+(load! "local-packages/local_file")
 #+end_src
 
 * keybindings
@@ -1006,9 +981,7 @@ do not already have one."
 ** org-calendar
 #+begin_src emacs-lisp
 (setq org-gcal-client-id "450681703770-iteaad3onrsjkjad401bkqg9bu0ennrj.apps.googleusercontent.com"
-      org-gcal-client-secret "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"
-      ;; oauth2-auto-google-client-id "450681703770-iteaad3onrsjkjad401bkqg9bu0ennrj.apps.googleusercontent.com"
-      ;; oauth2-auto-google-client-secret "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"
+      org-gcal-client-secret gmail-secret
       org-gcal-fetch-file-alist '(("sebastianwalchi@gmail.com" .  "~/Files/Org/Agenda/appointments.org")))
                                   ;; ("another-mail@gmail.com" .  "~/task.org")
 
