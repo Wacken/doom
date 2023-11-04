@@ -19,8 +19,12 @@
 
        :completion
        (company +tng)                   ; the ultimate code completion backend +childframe
-       (ivy                ;; +fuzzy +childframe
-        +prescient +icons) ; a search engine for love and life
+       ;; (ivy                ;; +fuzzy +childframe
+       ;;  +prescient +icons) ; a search engine for love and life
+       ;;helm              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       (vertico +icons +childframe)           ; the search engine of the future
+
 
        :ui
        deft                     ; notational velocity for emacs
