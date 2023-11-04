@@ -176,12 +176,9 @@
   (hl-line-mode (if rainbow-mode -1 +1)))
 #+END_SRC
 
-#+RESULTS:
-| lambda | (&rest _) | (hl-line-mode (if rainbow-mode -1 1)) |
-
 ** -beacon
 #+begin_src emacs-lisp
-  ;; (use-package beacon
+  ;; (use-package! beacon
   ;;   :diminish beacon-mode
   ;;   :config
   ;;   (beacon-mode))
@@ -190,8 +187,7 @@
 * code-transform
 ** expand-region
 #+begin_src emacs-lisp
-;; (use-package expand-region
-;;   :ensure t
+;; (use-package! expand-region
 ;;   :general
 ;;   (:states '(visual motion)
 ;;    "c-+" 'er/expand-region
@@ -200,8 +196,7 @@
 
 ** hungry-delete
 #+begin_src emacs-lisp
-  ;; (use-package hungry-delete
-  ;;   :ensure t
+  ;; (use-package! hungry-delete
   ;;   :diminish hungry-delete-mode
   ;;   :ghook ('(python-mode-hook
   ;;             csharp-mode-hook
@@ -236,8 +231,7 @@ smartparens
 evil-cleverparens
 ** agressive-indent
 #+begin_src emacs-lisp
-;; (use-package aggressive-indent
-;;   :ensure t
+;; (use-package! aggressive-indent
 ;;   :ghook ('(;; python-mode-hook
 ;;             csharp-mode-hook
 ;;             c++-mode-hook
@@ -247,8 +241,7 @@ evil-cleverparens
      
 * languages
 ** tools
-*** company
-**** statistics
+*** company statistics
 #+begin_src emacs-lisp
 (use-package! company-statistics
   :ghook 'company-mode-hook)
@@ -312,7 +305,7 @@ need to integrate in doom eval/REPL
 #+end_src
 ** latex
 #+begin_src emacs-lisp
-(add-hook 'latex-mode-hook (lambda () latex-preview-pane-mode))
+(add-hook! 'latex-mode-hook (lambda () latex-preview-pane-mode))
 ;; (setq TeX-engine 'luatex)
 ;; (setq org-latex-compilers "lualatex")
 (setq pdf-latex-command "lualatex")
@@ -327,8 +320,8 @@ need to integrate in doom eval/REPL
 (defconst org-agenda-dir (concat org-dir "Agenda/"))
 (setq org-directory org-dir)
 (setq org-roam-directory org-directory)
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-(add-hook 'org-mode-hook 'turn-on-auto-fill)
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode) t)
+(add-hook! 'org-mode-hook 'turn-on-auto-fill)
 (after! org
   (setq org-startup-folded 'content
         org-startup-indented 'indent
@@ -351,9 +344,9 @@ do not already have one."
   (interactive)
   (org-map-entries 'org-id-get-create))
 
-;; (add-hook 'org-mode-hook
+;; (add-hook! 'org-mode-hook
 ;;           (lambda ()
-;;             (add-hook 'before-save-hook 'my/org-add-ids-to-headlines-in-file nil 'local)))
+;;             (add-hook! 'before-save-hook 'my/org-add-ids-to-headlines-in-file nil 'local)))
 #+end_src
 ** bullets
 #+begin_src emacs-lisp
@@ -751,7 +744,7 @@ do not already have one."
   (interactive)
   (setq appt-time-msg-list nil)
   (org-agenda-to-appt))
-(add-hook 'org-agenda-finalize-hook 'bh/org-agenda-to-appt 'append) ; Rebuild the reminders everytime the agenda is displayed
+(add-hook! 'org-agenda-finalize-hook 'bh/org-agenda-to-appt 'append) ; Rebuild the reminders everytime the agenda is displayed
 (appt-activate t) ; Activate appointments so we get notifications
 (run-at-time "24:01" nil 'bh/org-agenda-to-appt) ; If we leave Emacs running overnight - reset the appointments one minute after midnight
 (setq appt-message-warning-time 15
@@ -916,16 +909,16 @@ do not already have one."
 #+end_src
 *** COMMENT org-roam-company
 #+begin_src emacs-lisp
-(use-package company-org-roam
+(use-package! company-org-roam
   :config
   (push 'company-org-roam company-backends))
 #+end_src
 *** COMMENT nroam
 #+begin_src emacs-lisp
-;; (use-package nroam
+;; (use-package! nroam
 ;;   :after org-roam
 ;;   :config
-;;   (add-hook 'org-mode-hook #'nroam-setup-maybe))
+;;   (add-hook! 'org-mode-hook #'nroam-setup-maybe))
 #+end_src
 *** org-roam-ui
 #+begin_src emacs-lisp
@@ -937,7 +930,7 @@ do not already have one."
 ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
 ;;         a hookable mode anymore, you're advised to pick something yourself
 ;;         if you don't care about startup time, use
-;;  :hook (after-init . org-roam-ui-mode)
+;;  :ghook 'after-init
     :config
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
@@ -1012,8 +1005,7 @@ do not already have one."
 #+begin_src emacs-lisp
 (use-package! vterm
   :config
-  (add-hook 'vterm-mode-hook (lambda () (global-company-mode -1)))
-  (add-hook 'vterm-mode-hook (lambda () (company-mode -1))))
+  (add-hook! 'vterm-mode-hook (lambda () (company-mode -1))))
 #+end_src
 ** mu4e
 #+begin_src emacs-lisp
@@ -1138,7 +1130,7 @@ do not already have one."
 #+END_SRC
 ** COMMENT eaf
 #+begin_src emacs-lisp
-(use-package eaf
+(use-package! eaf
   :load-path "/usr/share/emacs/site-lisp/eaf" ; Set to "" if installed from AUR
   :custom
   (eaf-find-alternate-file-in-dired t)
