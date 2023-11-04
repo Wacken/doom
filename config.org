@@ -254,6 +254,7 @@ evil-cleverparens
 *** lsp
 #+begin_src emacs-lisp
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
+(use-package! lsp-sonarlint)
 #+end_src
 ** c#
 *** repl
@@ -280,7 +281,12 @@ need to integrate in doom eval/REPL
 (after! dap-mode
   (setq dap-python-debugger 'debugpy))
 #+end_src
-
+*** sonar-lsp
+#+begin_src emacs-lisp
+(use-package! lsp-sonarlint-python
+  :config
+  (setq lsp-sonarlint-python-enabled t))
+#+end_src
 ** cc
 *** lsp
 #+begin_src emacs-lisp
