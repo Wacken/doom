@@ -289,6 +289,7 @@ need to integrate in doom eval/REPL
 ** bash
 #+begin_src emacs-lisp
 ;; (add-to-list 'auto-mode-alist '("\\.bats\\'" . shell-script-mode))
+(setq sh-shell-file "/bin/bash") ;; make default for shell files be bash (lsp not available for zsh)
 #+end_src
 
 *** bats mode
