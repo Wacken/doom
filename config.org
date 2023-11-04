@@ -1155,7 +1155,8 @@ do not already have one."
 *** setup
 #+begin_src emacs-lisp
 (after! elfeed
-  (setq elfeed-search-filter "@1-month-ago +unread"))
+  (setq elfeed-search-filter "@1-month-ago +unread"
+        elfeed-db-directory (concat doom-private-dir "elfeed/db/")))
 (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
 #+end_src
 
