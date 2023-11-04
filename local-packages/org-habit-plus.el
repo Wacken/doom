@@ -61,7 +61,7 @@
 (require 'org-agenda)
 
 (eval-when-compile
-  (require 'cl))
+  (require 'cl-macs))
 
 (defgroup org-habit nil
   "Options concerning habit tracking in Org-mode."
@@ -201,7 +201,7 @@ It will be green even if it was done after the deadline."
                   This list represents a \"habit\" for the rest of this module."
   (save-excursion
     (if pom (goto-char pom))
-    (assert (org-is-habit-p (point)))
+    (cl-assert (org-is-habit-p (point)))
     (let* ((scheduled (org-get-scheduled-time (point)))
            (scheduled-repeat (org-get-repeat))
            (end (org-entry-end-position))
@@ -217,7 +217,7 @@ It will be green even if it was done after the deadline."
          habit-entry))
       (setq sr-days (org-habit-duration-to-days scheduled-repeat)
             sr-type (progn (string-match "[\\.+]?\\+" scheduled-repeat)
-                           (org-match-string-no-properties 0 scheduled-repeat)))
+                           (match-string-no-properties 0 scheduled-repeat)))
       (unless (> sr-days 0)
         (error "Habit %s scheduled repeat period is less than 1d" habit-entry))
       (when (string-match "/\\([0-9]+[dwmy]\\)" scheduled-repeat)
@@ -253,8 +253,8 @@ It will be green even if it was done after the deadline."
 
         (while (and (< count maxdays) (funcall search re limit t))
           (let* ((tm (org-time-string-to-time
-                      (or (org-match-string-no-properties 1)
-                          (org-match-string-no-properties 2))))
+                      (or (match-string-no-properties 1)
+                          (match-string-no-properties 2))))
                  (weekday (string-to-number (format-time-string "%u" tm)))
                  (time (time-to-days tm)))
             (push (cons time weekday) closed-dates-weekdays)
@@ -499,10 +499,10 @@ It will be green even if it was done after the deadline."
                          (if (= s-repeat 1)
                              (1+ ++incr)
                            ++incr)))
-          (when donep (setq incr ++incr))
-          ;; (setq mess (format "incr: %s ++incr: %s ++index: %s scheduled: %s start: %s" incr ++incr ++index scheduled start))
-          ;; (message "%s index: %s done: %s last: %s in-the-past: %s" mess index donep last-done-date in-the-past-p)
-          )
+          (when donep (setq incr ++incr)))
+        ;; (setq mess (format "incr: %s ++incr: %s ++index: %s scheduled: %s start: %s" incr ++incr ++index scheduled start))
+        ;; (message "%s index: %s done: %s last: %s in-the-past: %s" mess index donep last-done-date in-the-past-p)
+
         (if donep
             (let ((done-time (time-add
                               starting
@@ -584,8 +584,8 @@ It will be green even if it was done after the deadline."
       (while (not (member wd w-days))
         (org-entry-put nil "SCHEDULED" "later")
         (setq wd (org-habit--weekday-increment wd 1))
-        (message "%s %s %s %s" w-days wd norm-inc lack)
-        )
+        (message "%s %s %s %s" w-days wd norm-inc lack))
+
       t)))
 
 (defun org-habit-maybe-reschedule (trigger-plist)
@@ -604,14 +604,14 @@ It will be green even if it was done after the deadline."
                      (equal type (plist-get org-habit-last-todo-change :type))
                      (equal pos (plist-get org-habit-last-todo-change :position))
                      (equal from (plist-get org-habit-last-todo-change :to))
-                     (equal to (plist-get org-habit-last-todo-change :from))
-                     )
+                     (equal to (plist-get org-habit-last-todo-change :from)))
+
             (message "reschedule %s" (org-habit-reschedule pos))
             (org-time-string-to-time "<2015-11-29 Sun .+2d/5d>")
-            (setq org-habit-last-todo-change nil)
-            )))
-      (message "%s %s %s %s" type pos from to)
-      )))
+            (setq org-habit-last-todo-change nil))))
+
+      (message "%s %s %s %s" type pos from to))))
+
 
 (add-hook 'org-trigger-hook 'org-habit-maybe-reschedule)
 
