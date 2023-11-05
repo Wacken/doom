@@ -119,10 +119,11 @@
   :custom ((dired-listing-switches "-aho --group-directories-first"))
   :config
   (setq delete-by-moving-to-trash t)
-  ;; (evil-collection-define-key 'normal 'dired-mode-map
-  ;;   "h" 'dired-up-directory
-  ;;   "l" 'dired-find-file)
-  )
+;; (setq diff-command "delta"
+;;       diff-switches "")
+ (evil-collection-define-key 'normal 'dired-mode-map
+   "h" 'dired-up-directory
+   "l" 'dired-find-file))
 
 
 (use-package! dired-open
