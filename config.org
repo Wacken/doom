@@ -231,6 +231,7 @@ evil-cleverparens
 #+begin_src emacs-lisp
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 (use-package! lsp-sonarlint)
+(setq lsp-use-plists t)
 #+end_src
 ** c#
 *** repl
