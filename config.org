@@ -821,8 +821,8 @@ do not already have one."
   :config
   (setq org-habit-show-habits-only-for-today t))
 (add-to-list 'org-modules 'org-habit)
-(load! "local-packages/org-habit-plus")
-(add-to-list 'org-modules 'org-habit-plus)
+;; (load! "local-packages/org-habit-plus")
+;; (add-to-list 'org-modules 'org-habit-plus)
 #+end_src
 ** org-protocol
 #+begin_src emacs-lisp
