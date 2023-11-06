@@ -320,7 +320,7 @@ need to integrate in doom eval/REPL
 (after! org
   (setq org-startup-folded 'content
         org-startup-indented 'indent
-        org-agenda-files (list(concat org-dir "Agenda"))
+        org-agenda-files (list (concat org-dir "Agenda"))
         org-log-done 'time
         org-log-into-drawer t
         org-extend-today-until 4
@@ -416,40 +416,26 @@ do not already have one."
                              :and (:todo "PROJECT" :tag "Goal" :tag "Future" :tag "Active")
                              :order 1
                              :transformer (--> it
-                                            (first (split-string it ":"))
-                                            (split-string it "-")
-                                            (or (second it) (first it))
-                                            (propertize it 'face '(:foreground "Cyan"))))
+                                               (car (split-string it ":"))
+                                               (propertize it 'face '(:foreground "Cyan"))))
                             (:name "Long_term Goals"
                              :and (:todo "PROJECT" :tag "Goal" :tag "Long_term" :tag "Active")
                              :order 3
                              :transformer (--> it
-                                            (first (split-string it ":"))
-                                            (split-string it "-")
-                                            (if (second it)
-                                                (concat "  " (second it))
-                                              (first it))
-                                            (propertize it 'face '(:foreground "Green"))))
+                                               (car (split-string it ":"))
+                                               (propertize it 'face '(:foreground "Green"))))
                             (:name "Short_term Goals"
                              :and (:todo "PROJECT" :tag "Goal" :tag "Short_term" :tag "Active")
                              :order 5
                              :transformer (--> it
-                                            (first (split-string it ":"))
-                                            (split-string it "-")
-                                            (if (second it)
-                                                (concat "  " (second it))
-                                              (first it))
-                                            (propertize it 'face '(:foreground "orange"))))
+                                               (car (split-string it ":"))
+                                               (propertize it 'face '(:foreground "orange"))))
 
                             (:name "Archive Goals"
                              :and (:todo "PROJECT" :tag "Goal")
                              :order 9
                              :transformer (--> it
-                                            (first (split-string it ":"))
-                                            (split-string it "-")
-                                            (if (second it)
-                                                (concat "  " (second it))
-                                              (first it))))
+                                               (car (split-string it ":"))))
                             (:discard (:anything))))))))
           ("G" "GTD Block View"
            ((agenda "" ((org-agenda-span 2)
@@ -466,32 +452,20 @@ do not already have one."
                              :and (:todo "PROJECT" :tag "Goal" :tag "Future" :tag "Active")
                              :order 3
                              :transformer (--> it
-                                            (first (split-string it ":"))
-                                            (split-string it "-")
-                                            (if (second it)
-                                                (concat "  " (second it))
-                                              (first it))
-                                            (propertize it 'face '(:foreground "Cyan"))))
+                                               (car (split-string it ":"))
+                                               (propertize it 'face '(:foreground "Cyan"))))
                             (:name "Long_term Goals"
                              :and (:todo "PROJECT" :tag "Goal" :tag "Long_term" :tag "Active")
                              :order 4
                              :transformer (--> it
-                                            (first (split-string it ":"))
-                                            (split-string it "-")
-                                            (if (second it)
-                                                (concat "  " (second it))
-                                              (first it))
-                                            (propertize it 'face '(:foreground "Green"))))
+                                               (car (split-string it ":"))
+                                               (propertize it 'face '(:foreground "Green"))))
                             (:name "Short_term Goals"
                              :and (:todo "PROJECT" :tag "Goal" :tag "Short_term" :tag "Active")
                              :order 5
                              :transformer (--> it
-                                            (first (split-string it ":"))
-                                            (split-string it "-")
-                                            (if (second it)
-                                                (concat "  " (second it))
-                                              (first it))
-                                            (propertize it 'face '(:foreground "orange"))))
+                                               (car (split-string it ":"))
+                                               (propertize it 'face '(:foreground "orange"))))
                             ;; (:name "Computer"
                             ;;  :and (:todo "NEXT" :tag "@computer")
                             ;;  :order 1)
