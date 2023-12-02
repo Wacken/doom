@@ -10,7 +10,8 @@
 (set-time-zone-rule "Asia/Tokyo")
 
 
-(load! "local-packages/local_file")
+(load! "local-packages/functions")
+(load! "local-packages/secret_file")
 #+end_src
 
 * keybindings
@@ -31,8 +32,6 @@
  :desc "toogle test and implementation" "ps" 'projectile-toggle-between-implementation-and-test
  "pS"              'projectile-save-project-buffers
 
- "os"              #'hydra-spotify/body
-
  "a"               'org-agenda
  "A"               'org-switchb
  "T"               'org-capture)
@@ -41,9 +40,8 @@
 ** evil
 *** setup
  #+begin_src emacs-lisp
-     (setq evil-emacs-state-modes nil)
-     ;; don't put into normal mode in repl (setq evil-insert-state-modes nil)
-     (setq evil-motion-state-modes nil)
+(setq evil-emacs-state-modes nil)
+(setq evil-motion-state-modes nil)
  #+end_src
 
 ** which-key
@@ -55,23 +53,6 @@
  #+end_src
 
 * navigation
-** COMMENT counsel
- #+begin_src emacs-lisp
-(use-package! counsel
-  :init
-  (define-key!
-    [remap describe-symbol] #'counsel-describe-symbol)
-  ;; [remap org-set-tags-command] nil)
-  :config
-  (setq ivy-count-format "[%d/%d]")
-  (setq enable-recursive-minibuffers t)
-  (setq search-default-mode #'char-fold-to-regexp))
-;; (global-set-key (kbd "c-c g") 'counsel-git)
-;; (global-set-key (kbd "c-c j") 'counsel-git-grep)
-;; (global-set-key (kbd "c-c k") 'counsel-ag)
-;; (global-set-key (kbd "c-s-o") 'counsel-rhythmbox)
- #+end_src
-
 ** ibuffer
 #+begin_src emacs-lisp
 (setq! ibuffer-saved-filter-groups
@@ -94,13 +75,6 @@
                          (name . "^\\*dashboard\\*$")))))))
 
 (add-hook! 'ibuffer-mode-hook (ibuffer-auto-mode) (ibuffer-switch-to-saved-filter-groups "default"))
-
-;; ;; don't show these
-;; ;;(add-to-list 'ibuffer-never-show-predicates "zowie")
-;; ;; don't show filter groups if there are no buffers in that group
-
-;; ;; don't ask for confirmation to delete marked buffers
-;; (setq ibuffer-expert t)
 #+end_src
 
 ** ace window
@@ -119,12 +93,9 @@
   :custom ((dired-listing-switches "-aho --group-directories-first"))
   :config
   (setq delete-by-moving-to-trash t)
-;; (setq diff-command "delta"
-;;       diff-switches "")
  (evil-collection-define-key 'normal 'dired-mode-map
    "h" 'dired-up-directory
    "l" 'dired-find-file))
-
 
 (use-package! dired-open
   :config
@@ -135,7 +106,6 @@
 * texteditor
 ** lines
 #+begin_src emacs-lisp
-;; (global-hl-line-mode)
 (setq display-line-numbers-type 'relative)
 #+end_src
 
@@ -150,76 +120,9 @@
 
 ** Color
 #+BEGIN_SRC emacs-lisp
-;; (add-hook! 'org-mode-hook (rainbow-mode))
-;; (add-hook! 'prog-mode-hook (rainbow-mode))
-;; (add-hook! 'text-mode-hook (rainbow-mode))
 (add-hook! 'rainbow-mode-hook
   (hl-line-mode (if rainbow-mode -1 +1)))
 #+END_SRC
-
-** -beacon
-#+begin_src emacs-lisp
-  ;; (use-package! beacon
-  ;;   :diminish beacon-mode
-  ;;   :config
-  ;;   (beacon-mode))
-#+end_src
-
-* code-transform
-** expand-region
-#+begin_src emacs-lisp
-;; (use-package! expand-region
-;;   :general
-;;   (:states '(visual motion)
-;;    "c-+" 'er/expand-region
-;;    "c--" 'er/contract-region))
-#+end_src
-
-** hungry-delete
-#+begin_src emacs-lisp
-  ;; (use-package! hungry-delete
-  ;;   :diminish hungry-delete-mode
-  ;;   :ghook ('(python-mode-hook
-  ;;             csharp-mode-hook
-  ;;             c++-mode-hook
-  ;;             haskell-mode-hook)))
-#+end_src
-
-** lispy
-*** setup
-#+begin_src emacs-lisp
-;; (use-package! lispy
-;;   :config
-;;   (add-hook! 'activate-mark-hook #'lispyville--enter-visual)
-;;   (setq lispy-compat t)
-;;   ;; enter visual state after `lispy-mark-symbol' with correct selection
-;;   (evil-define-key 'normal lispyville-mode-map
-;;     "v" (lispyville-wrap-command lispy-mark-symbol visual))
-;;   )
-;; (setq-default mode-line-format
-;;                '(:eval (when (featurep 'lispyville)
-;;                          (lispyville-mode-line-string))))
-;; (defun setup-custorm-doom-modeline
-;;     (doom-modeline-set-modeline 'default))
-;; (add-hook! 'doom-modeline-mode-hook #'lispyville-mode-line-string)
-;; (setq! global-mode-string (lispyville-mode-line-string "insert" "special-lispy"))
-#+end_src
-
-*** others
-evil-lispy
-paredit
-smartparens
-evil-cleverparens
-** agressive-indent
-#+begin_src emacs-lisp
-;; (use-package! aggressive-indent
-;;   :ghook ('(;; python-mode-hook
-;;             csharp-mode-hook
-;;             c++-mode-hook
-;;             haskell-mode-hook)))
-;; ;; (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
-#+end_src
-     
 * languages
 ** tools
 *** company statistics
@@ -231,28 +134,20 @@ evil-cleverparens
 #+begin_src emacs-lisp
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 (use-package! lsp-sonarlint)
-(setq lsp-use-plists t)
+(setq lsp-use-plists t) ;; optimization for lsp
 #+end_src
 ** c#
 *** repl
 need to integrate in doom eval/REPL
 #+begin_src emacs-lisp
-(defun my-csharp-repl ()
-  "switch to the csharprepl buffer, creating it if necessary."
-  (interactive)
-  (if-let ((buf (get-buffer "*csharprepl*")))
-      (pop-to-buffer buf)
-    (when-let ((b (make-comint "csharprepl" "csharp")))
-      (switch-to-buffer-other-window b))))
 (set-repl-handler! 'csharp-mode #'my-csharp-repl)
 #+end_src
-** COMMENT clojure
+** clojure
 *** hydra
 #+begin_src emacs-lisp
 (use-package! cider-hydra
   :ghook 'clojure-mode-hook)
 #+end_src
-
 ** python
 #+begin_src emacs-lisp
 (after! dap-mode
@@ -280,31 +175,17 @@ need to integrate in doom eval/REPL
 
 ;; Associate CMakeLists.txt files with cmake-mode
 (add-to-list 'auto-mode-alist '("CMakeLists\\.txt\\'" . cmake-mode))
-
-;; Define a function to enable cmake-mode for CMakeLists.txt files
-;; (defun my-enable-cmake-mode ()
-;;   (cmake-mode))
-
-;; Add a hook to invoke my-enable-cmake-mode when opening CMakeLists.txt
-;; (add-hook! 'cmake-mode-hook 'my-enable-cmake-mode)
 #+end_src
 ** bash
 #+begin_src emacs-lisp
-;; (add-to-list 'auto-mode-alist '("\\.bats\\'" . shell-script-mode))
 (setq sh-shell-file "/bin/bash") ;; make default for shell files be bash (lsp not available for zsh)
 #+end_src
 
-*** bats mode
-#+begin_src emacs-lisp
-
-#+end_src
 ** latex
 #+begin_src emacs-lisp
 (add-hook! 'latex-mode-hook (lambda () latex-preview-pane-mode))
-;; (setq TeX-engine 'luatex)
-;; (setq org-latex-compilers "lualatex")
+(setq TeX-engine 'luatex)
 (setq pdf-latex-command "lualatex")
-;; org-latex-compilers = ("pdflatex" "xelatex" "lualatex"), which are the possible values for %latex
 (setq org-latex-pdf-process '("LC_ALL=en_US.UTF-8 latexmk -f -pdf -%latex -shell-escape -interaction=nonstopmode -output-directory=%o %f"))
 #+end_src
 
@@ -324,24 +205,12 @@ need to integrate in doom eval/REPL
         org-log-done 'time
         org-log-into-drawer t
         org-extend-today-until 4
-        org-ellipsis " ▾"
+        org-ellipsis " ⌄"
         org-agenda-start-with-log-mode t
         org-use-property-inheritance t
         org-deadline-warning-days 7
         org-hide-emphasis-markers t
         org-id-link-to-org-use-id t))
-#+end_src
-** org ids
-#+begin_src emacs-lisp
-(defun my/org-add-ids-to-headlines-in-file ()
-  "Add ID properties to all headlines in the current file which
-do not already have one."
-  (interactive)
-  (org-map-entries 'org-id-get-create))
-
-;; (add-hook! 'org-mode-hook
-;;           (lambda ()
-;;             (add-hook! 'before-save-hook 'my/org-add-ids-to-headlines-in-file nil 'local)))
 #+end_src
 ** bullets
 #+begin_src emacs-lisp
@@ -374,42 +243,7 @@ do not already have one."
   :after org-agenda
   :init
   (setq org-agenda-custom-commands
-        '(("z" "Super zaen view"
-           ((agenda "" ((org-agenda-span 'day)
-                        (org-agenda-start-day nil)
-                        (org-super-agenda-groups
-                         '((:name "Today"
-                            :time-grid t
-                            :date today
-                            :scheduled today
-                            :order 1)))))
-            (alltodo "" ((org-agenda-overriding-header "")
-                         (org-super-agenda-groups
-                          '((:name "Next to do"
-                             :todo "NEXT"
-                             :order 1)
-                            (:name "Important"
-                             :priority "A"
-                             :order 6)
-                            (:name "Due Today"
-                             :deadline today
-                             :order 2)
-                            (:name "Due Soon"
-                             :deadline future
-                             :order 8)
-                            (:name "Overdue"
-                             :deadline past
-                             :order 7)
-                            (:name "Waiting"
-                             :todo "WAITING"
-                             :order 20)
-                            (:name "trivial"
-                             :priority<= "C"
-                             :tag ("Trivial" "Unimportant")
-                             :todo ("SOMEDAY")
-                             :order 90)
-                            (:discard (:tag ("Chore" "Routine" "Daily")))))))))
-          ("g" "Goals"
+        '(("g" "Goals"
            ((alltodo "" ((org-agenda-overriding-header "")
                          (org-super-agenda-groups
                           '((:name "Future Goals"
@@ -551,145 +385,6 @@ do not already have one."
   (org-super-agenda-mode))
 #+end_src
 
-*** COMMENT custom-agenda
-#+begin_src emacs-lisp
-(setq org-agenda-custom-commands
-      (quote (("N" "Notes" tags "NOTE"
-               ((org-agenda-overriding-header "Notes")
-                (org-tags-match-list-sublevels t)))
-              ("h" "Habits" tags-todo "STYLE=\"habit\""
-               ((org-agenda-overriding-header "Habits")
-                (org-agenda-sorting-strategy
-                 '(todo-state-down effort-up category-keep))))
-              ("n" "Next Actions"
-               ((agenda ""
-                        ((org-agenda-span '1)
-                         (org-agenda-files (append (file-expand-wildcards "~/.org/gtd/*.org")))
-                         (org-agenda-start-day (org-today))))
-                (tags-todo "-@delegated/-PROJ-TODO-WAIT-WATCH"
-                           ((org-agenda-overriding-header "Project Tasks")
-                            (org-agenda-skip-function 'bh/skip-non-projects)
-                            (org-agenda-sorting-strategy
-                             '(category-up))))
-                (tags-todo "-SOMEDAY-@delegated/-TODO-WAIT-PROJ-WATCH"
-                           ((org-agenda-overriding-header (concat "Standalone Tasks"))
-                            (org-agenda-skip-function 'nm/skip-project-tasks)
-                            (org-agenda-todo-ignore-scheduled t)
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-sorting-strategy '(category-up))))
-                (tags-todo "-SOMEDAY-@delegated/WATCH"
-                           ((org-agenda-overriding-header "Keep eye on")
-                            (org-agenda-sorting-strategy '(category-keep))))
-                (tags-todo "@delegated/!"
-                           ((org-agenda-overriding-header "Delegated")
-                            (org-agenda-todo-ignore-scheduled t)
-                            (org-agenda-todo-ignore-deadlines t)
-                            (org-agenda-todo-ignore-with-date t)
-                            (org-agenda-sorting-strategy '(category-keep))))
-                (tags-todo "-@delegated/WAIT"
-                           ((org-agenda-overriding-header "On Hold")
-                            (org-agenda-sorting-strategy
-                             '(category-keep))))
-                (tags-todo "-SOMEDAY/TODO"
-                           ((org-tags-match-list-sublevels nil)
-                            (org-agenda-overriding-header "Inbox Bucket")))
-                (tags-todo "-@delegated/PROJ"
-                           ((org-agenda-overriding-header "Projects")
-                            (org-agenda-skip-function 'bh/skip-non-projects)
-                            (org-tags-match-list-sublevels 'indented)
-                            (org-agenda-sorting-strategy
-                             '(category-keep))))))
-              ("r" "Review"
-               ((tags-todo "-CANCELLED/!"
-                           ((org-agenda-overriding-header "Stuck Projects")
-                            (org-agenda-skip-function 'bh/skip-non-stuck-projects)
-                            (org-agenda-sorting-strategy
-                             '(category-keep))))
-                (tags-todo "-SOMEDAY-REFILE-CANCELLED-WAITING-HOLD/!"
-                           ((org-agenda-overriding-header (concat "Project Subtasks"
-                                                                  (if bh/hide-scheduled-and-waiting-next-tasks
-                                                                      ""
-                                                                    " (including WAITING and SCHEDULED tasks)")))
-                            (org-agenda-skip-function 'bh/skip-non-project-tasks)
-                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-sorting-strategy
-                             '(category-keep))))
-                (tags-todo "-SOMEDAY/TODO"
-                           ((org-tags-match-list-sublevels nil)
-                            (org-agenda-overriding-header "Inbox Bucket")))
-                (tags-todo "SOMEDAY/"
-                           ((org-agenda-overriding-header "Someday Tasks")
-                            (org-agenda-skip-function 'nm/skip-scheduled)
-                            (org-tags-match-list-sublevels nil)
-                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks))))))))
-(setq org-agenda-custom-commands
-      '(("d" "Dashboard"
-         ((agenda "" ((org-deadline-warning-days 7)))
-          (todo "NEXT"
-                ((org-agenda-overriding-header "Next Tasks")))
-          (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
-
-        ("w" "At work" tags-todo "@work"
-         ;; ((todo "NEXT"
-         ((org-agenda-overriding-header "Work")))
-        ("s" "On Smartphone" tags-todo "@smartphone"
-         ;; ((todo "NEXT"
-         ((org-agenda-overriding-header "Smartphone")))
-        ("h" "At home" tags-todo "@home"
-         ;; ((todo "NEXT"
-         ((org-agenda-overriding-header "Home")))
-        ("c" "At Computer" tags-todo "@computer"
-         ;; ((todo "NEXT"
-         ((org-agenda-overriding-header "Computer")))
-        ("e" "At Errand" tags-todo "@errand"
-         ;; ((todo "NEXT"
-         ((org-agenda-overriding-header "Errand")))
-
-        ("n" "Next Tasks"
-         ((todo "NEXT"
-                ((org-agenda-overriding-header "Next Tasks")))))
-
-        ("T" "Work Tasks" tags-todo "+work-email")
-
-        ;; Low-effort next actions
-        ("E" tags-todo "+TODO=\"NEXT\"+Effort<15&+Effort>0"
-         ((org-agenda-overriding-header "Low Effort Tasks")
-          (org-agenda-max-todos 20)
-          (org-agenda-files org-agenda-files)))
-
-        ("W" "Workflow Status"
-         ((todo "WAIT"
-                ((org-agenda-overriding-header "Waiting on External")
-                 (org-agenda-files org-agenda-files)))
-          (todo "REVIEW"
-                ((org-agenda-overriding-header "In Review")
-                 (org-agenda-files org-agenda-files)))
-          (todo "PLAN"
-                ((org-agenda-overriding-header "In Planning")
-                 (org-agenda-todo-list-sublevels nil)
-                 (org-agenda-files org-agenda-files)))
-          (todo "BACKLOG"
-                ((org-agenda-overriding-header "Project Backlog")
-                 (org-agenda-todo-list-sublevels nil)
-                 (org-agenda-files org-agenda-files)))
-          (todo "READY"
-                ((org-agenda-overriding-header "Ready for Work")
-                 (org-agenda-files org-agenda-files)))
-          (todo "ACTIVE"
-                ((org-agenda-overriding-header "Active Projects")
-                 (org-agenda-files org-agenda-files)))
-          (todo "COMPLETED"
-                ((org-agenda-overriding-header "Completed Projects")
-                 (org-agenda-files org-agenda-files)))
-          (todo "CANC"
-                ((org-agenda-overriding-header "Cancelled Projects")
-                 (org-agenda-files org-agenda-files)))))))
-#+end_src
-
 ** tags
 #+begin_src emacs-lisp
 (after! org
@@ -709,10 +404,6 @@ do not already have one."
 
 ** appt
 #+begin_src emacs-lisp
-(defun bh/org-agenda-to-appt () ; Erase all reminders and rebuilt reminders for today from the agenda
-  (interactive)
-  (setq appt-time-msg-list nil)
-  (org-agenda-to-appt))
 (add-hook! 'org-agenda-finalize-hook 'bh/org-agenda-to-appt 'append) ; Rebuild the reminders everytime the agenda is displayed
 (appt-activate t) ; Activate appointments so we get notifications
 (run-at-time "24:01" nil 'bh/org-agenda-to-appt) ; If we leave Emacs running overnight - reset the appointments one minute after midnight
@@ -748,13 +439,6 @@ do not already have one."
       org-journal-date-format "%a, %d-%m-%Y"
       org-journal-file-format "%Y-%m-%d.org"
       org-journal-dir org-directory)
-(defun org-journal-find-location ()
-  ;; Open today's journal, but specify a non-nil prefix argument in order to
-  ;; inhibit inserting the heading; org-capture will insert the heading.
-  (org-journal-new-entry t)
-  (unless (eq org-journal-file-type 'daily)
-    (org-narrow-to-subtree))
-  (goto-char (point-max)))
 #+end_src
 
 ** capture
@@ -783,32 +467,6 @@ do not already have one."
          "* %(format-time-string org-journal-time-format)\n%i\n%?")))
 #+end_src
 
-*** COMMENT old
-#+begin_src emacs-lisp
- (("t" "Personal todo" entry
-  (file+headline +org-capture-todo-file "Inbox")
-  "* [ ] %?\n%i\n%a" :prepend t)
- ("n" "Personal notes" entry
-  (file+headline +org-capture-notes-file "Inbox")
-  "* %u %?\n%i\n%a" :prepend t)
- ("j" "Journal" entry
-  (file+olp+datetree +org-capture-journal-file)
-  "* %U %?\n%i\n%a" :prepend t)
- ("p" "Templates for projects")
- ("pt" "Project-local todo" entry
-  (file+headline +org-capture-project-todo-file "Inbox")
-  "* TODO %?\n%i\n%a" :prepend t)
- ("pn" "Project-local notes" entry
-  (file+headline +org-capture-project-notes-file "Inbox")
-  "* %U %?\n%i\n%a" :prepend t)
- ("pc" "Project-local changelog" entry
-  (file+headline +org-capture-project-changelog-file "Unreleased")
-  "* %U %?\n%i\n%a" :prepend t)
- ("o" "Centralized templates for projects")
- ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
- ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
- ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
-#+end_src
 ** noter
 #+begin_src emacs-lisp
 (setq org-noter-always-create-frame nil)
@@ -869,12 +527,7 @@ do not already have one."
         org-roam-server-network-arrows nil
         org-roam-server-network-label-truncate t
         org-roam-server-network-label-truncate-length 60
-        org-roam-server-network-label-wrap-length 20)
-  (defun org-roam-server-open ()
-    "Ensure the server is active, then open the roam graph."
-    (interactive)
-    (org-roam-server-mode)
-    (browse-url-xdg-open (format "http://localhost:%d" org-roam-server-port))))
+        org-roam-server-network-label-wrap-length 20))
 #+end_src
 *** COMMENT org-roam-company
 #+begin_src emacs-lisp
@@ -915,47 +568,7 @@ do not already have one."
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("S" . "src emacs-lisp"))
 #+end_src
-** hide-property-drawers
-#+begin_src  emacs-lisp
-(require 'org)
-
-(defun org-cycle-hide-drawers (state)
-  "Re-hide all drawers after a visibility state change."
-  (when (and (derived-mode-p 'org-mode)
-             (not (memq state '(overview folded contents))))
-    (save-excursion
-      (let* ((globalp (memq state '(contents all)))
-             (beg (if globalp
-                    (point-min)
-                    (point)))
-             (end (if globalp
-                    (point-max)
-                    (if (eq state 'children)
-                      (save-excursion
-                        (outline-next-heading)
-                        (point))
-                      (org-end-of-subtree t)))))
-        (goto-char beg)
-        (while (re-search-forward org-drawer-regexp end t)
-          (save-excursion
-            (beginning-of-line 1)
-            (when (looking-at org-drawer-regexp)
-              (let* ((start (1- (match-beginning 0)))
-                     (limit
-                       (save-excursion
-                         (outline-next-heading)
-                           (point)))
-                     (msg (format
-                            (concat
-                              "org-cycle-hide-drawers:  "
-                              "`:END:`"
-                              " line missing at position %s")
-                            (1+ start))))
-                (if (re-search-forward "^[ \t]*:END:" limit t)
-                  (outline-flag-region start (point-at-eol) t)
-                  (user-error msg))))))))))
-#+end_src
-** org-calendar
+** org-gmail-calendar
 #+begin_src emacs-lisp
 (setq org-gcal-client-id "450681703770-iteaad3onrsjkjad401bkqg9bu0ennrj.apps.googleusercontent.com"
       org-gcal-client-secret gmail-secret
@@ -1065,10 +678,6 @@ do not already have one."
   ;; enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
 
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-colors") ; use the colorful treemacs theme
-  (doom-themes-treemacs-config)
-
   ;; corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
   (custom-theme-set-faces! 'doom-dracula
@@ -1079,10 +688,6 @@ do not already have one."
 
 ** modeline
 #+begin_src emacs-lisp
-;; (use-package! doom-modeline
-;;   :config
-;;   (setq doom-modeline-minor-modes t)
-;;   (setq doom-modeline-buffer-encoding nil))
 (after! doom-modeline
   (doom-modeline-def-modeline 'main
     '(bar matches buffer-info remote-host buffer-position parrot selection-info)
@@ -1091,38 +696,17 @@ do not already have one."
 
 ** font
 #+begin_src emacs-lisp
-;; (set-fontset-font t '(#Xe100 . #Xe16f) "Fira Code Symbol")
 (setq doom-font (font-spec :family "Fira Code" :size 16)
       doom-variable-pitch-font (font-spec :family "DejaVu Serif")
       doom-big-font (font-spec :family "Fira Code" :size 25))
-      ;; doom-unicode-font (font-spec :family "Fira Code Symbol"))
 
 (setq +ligatures-in-modes '(not special-mode comint-mode eshell-mode term-mode vterm-mode org-agenda-mode))
-
-;; (set-face-attribute 'default nil :font "DejaVu Sans Mono")
 #+end_src
 
-** minibuffer
+** COMMENT minibuffer
 #+BEGIN_SRC emacs-lisp
-(defun suppress-messages (old-fun &rest args)
-  (cl-flet ((silence (&rest args1) (ignore)))
-    (advice-add 'message :around #'silence)
-    (unwind-protect
-         (apply old-fun args)
-      (advice-remove 'message #'silence))))
 (advice-add 'url-lazy-message :around #'suppress-messages)
 #+END_SRC
-** COMMENT eaf
-#+begin_src emacs-lisp
-(use-package! eaf
-  :load-path "/usr/share/emacs/site-lisp/eaf" ; Set to "" if installed from AUR
-  :custom
-  (eaf-find-alternate-file-in-dired t)
-  :config
-  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
-  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
-  (eaf-bind-key take_photo "p" eaf-camera-keybinding))
-#+end_src
 * other
 ** elfeed
 *** setup
@@ -1139,54 +723,6 @@ do not already have one."
   :config
   (elfeed-goodies/setup)
   (setq elfeed-goodies/entry-pane-size 0.5))
-
-#+end_src
-
-** COMMENT spotify
-*** setup
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.config/doom/local-packages/spotify.el/")
-(require 'spotify)
-(setq spotify-oauth2-client-id "6a89d313c4604bc094e51866ed7faca9")
-(setq spotify-oauth2-client-secret "f2b2729fe3124736a29cb44f28d5a935")
-#+END_SRC
-
-*** hydra
-#+BEGIN_SRC emacs-lisp
-;; A hydra for controlling spotify.
-(defhydra hydra-spotify (:hint nil)
-    "
-^Search^                  ^Control^               ^Manage^
-^^^^^^^^-----------------------------------------------------------------
-_t_: Track               _SPC_: Play/Pause        _+_: Volume up
-_m_: My Playlists        _n_  : Next Track        _-_: Volume down
-_f_: Featured Playlists  _p_  : Previous Track    _x_: Mute
-_u_: User Playlists      _r_  : Repeat            _d_: Device
-^^                       _s_  : Shuffle           _q_: Quit
-"
-    ("t" spotify-track-search :exit t)
-    ("m" spotify-my-playlists :exit t)
-    ("f" spotify-featured-playlists :exit t)
-    ("u" spotify-user-playlists :exit t)
-    ("SPC" spotify-toggle-play :exit nil)
-    ("n" spotify-next-track :exit nil)
-    ("p" spotify-previous-track :exit nil)
-    ("r" spotify-toggle-repeat :exit nil)
-    ("s" spotify-toggle-shuffle :exit nil)
-    ("+" spotify-volume-up :exit nil)
-    ("-" spotify-volume-down :exit nil)
-    ("x" spotify-volume-mute-unmute :exit nil)
-    ("d" spotify-select-device :exit nil)
-    ("q" quit-window "quit" :color blue))
-#+END_SRC
-    
-** COMMENT elcord
-#+begin_src emacs-lisp
-(use-package! elcord
-  :config
-  (elcord-mode)
-  (setq elcord-use-major-mode-as-main-icon t
-        elcord-display-buffer-details nil))
 #+end_src
 ** yadm
 #+begin_src emacs-lisp

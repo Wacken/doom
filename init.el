@@ -44,7 +44,7 @@
        (popup +defaults)       ; tame sudden yet inevitable temporary windows
        ;; tabs                     ; a tab bar for emacs
        ;; treemacs                      ; a project drawer, like neotree but cooler
-       ;; unicode                  ; extended unicode support for various languages
+       unicode                  ; extended unicode support for various languages
        vc-gutter              ; vcs diff in the fringe
        vi-tilde-fringe        ; fringe tildes to mark beyond eob
        window-select          ; visually switch windows
@@ -79,14 +79,14 @@
 
        :checkers
        (syntax +childframe)           ; tasing you for every semicolon you forget
-       (spell +anspell +flyspell)             ; tasing you for misspelling mispelling fs +hunspell +enchant +everywhere
-       grammar           ; tasing grammar mistake every you make
+       ;; (spell +anspell +flyspell)             ; tasing you for misspelling mispelling fs +hunspell +enchant +everywhere
+       ;; grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
        ;; biblio
        ;;collab            ; buffers with friends
-       (debugger +lsp)          ; fixme stepping through code, to help you add bugs
+       ;; (debugger +lsp)          ; fixme stepping through code, to help you add bugs
        ;;direnv
        ;; (docker +lsp)
        editorconfig      ; let someone else argue about tabs vs spaces
@@ -148,7 +148,7 @@
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
-       ;;nix               ; i hereby declare "nix geht mehr!"
+       (nix +lsp +tree-sitter)               ; i hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org +roam2 +noter +pretty +pandoc);; +dragndrop +jupyter)              ;organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
