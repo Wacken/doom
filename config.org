@@ -607,9 +607,10 @@ need to integrate in doom eval/REPL
   (add-to-list 'mu4e-headers-actions
    '("ViewInBrowser" . mu4e-action-view-in-browser) t)
   (setq! mu4e-maildir (expand-file-name "~/.local/share/mail/outlook") ; the rest of the mu4e folders are RELATIVE to this one
-         mu4e-get-mail-command "mbsync -c ~/.config/mbsyncrc main"
+         mu4e-get-mail-command "mbsync -aVX -c ~/.config/mbsyncrc main"
          mu4e-index-update-in-background t
          mu4e-compose-signature-auto-include t
+         mu4e-hide-index_messages t
          mu4e-use-fancy-chars t
          mu4e-view-show-addresses t
          mu4e-view-show-images t
@@ -618,11 +619,12 @@ need to integrate in doom eval/REPL
          mu4e-change-filenames-when-moving t ;; http://pragmaticemacs.com/emacs/fixing-duplicate-uid-errors-when-using-mbsync-and-mu4e/
          mu4e-headers-date-format "%d.%m.%y"
          mu4e-maildir-shortcuts
-         '( ("/Inbox" . ?i)
+         '( ("/INBOX" . ?i)
             ("/Archives/2023" . ?a)
             ("/TODO" . ?t)
             ("/Work" . ?w)
             ("/Deleted" . ?d)
+            ("/Junk" . ?j)
             ("/Sent" . ?s))
 
          ;; Message Formatting and sending
