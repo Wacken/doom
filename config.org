@@ -133,7 +133,7 @@
 *** lsp
 #+begin_src emacs-lisp
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
-(use-package! lsp-sonarlint)
+;(use-package! lsp-sonarlint)
 (setq lsp-use-plists t) ;; optimization for lsp
 #+end_src
 ** c#
@@ -153,7 +153,7 @@ need to integrate in doom eval/REPL
 (after! dap-mode
   (setq dap-python-debugger 'debugpy))
 #+end_src
-*** sonar-lsp
+*** COMMENT sonar-lsp
 #+begin_src emacs-lisp
 (use-package! lsp-sonarlint-python
   :config
@@ -212,7 +212,7 @@ need to integrate in doom eval/REPL
         org-hide-emphasis-markers t
         org-id-link-to-org-use-id t))
 #+end_src
-** bullets
+** COMMENT bullets
 #+begin_src emacs-lisp
 (use-package! org-superstar
   :init
@@ -688,7 +688,7 @@ need to integrate in doom eval/REPL
   (setq doom-theme 'doom-dracula))
 #+end_src
 
-** modeline
+** COMMENT modeline
 #+begin_src emacs-lisp
 (after! doom-modeline
   (doom-modeline-def-modeline 'main
