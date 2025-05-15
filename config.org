@@ -713,9 +713,10 @@ need to integrate in doom eval/REPL
 ** elfeed
 *** setup
 #+begin_src emacs-lisp
+(defconst org-dir "~/Files/Org/")
 (after! elfeed
   (setq elfeed-search-filter "@1-month-ago +unread"
-        elfeed-db-directory (concat doom-private-dir "elfeed/db/")))
+        elfeed-db-directory (concat org-dir "elfeed/db/")))
 (add-hook! 'elfeed-search-mode-hook 'elfeed-update)
 #+end_src
 
